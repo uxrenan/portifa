@@ -1,0 +1,24 @@
+.section { --labz-background: #19162e; --labz-lime: #d0ef79; --labz-pink: #eaa4cd; --labz-cyan: #9ad9e7; --labz-paper: #f0efe9; --labz-muted: #aba7bf; position: relative; z-index: 2; isolation: isolate; width: var(--site-width); margin-inline: auto; padding-bottom: 96px; background: transparent; color: var(--labz-paper); scroll-margin-top: 92px; overflow: clip; }
+.universe { position: relative; min-height: clamp(460px, 55svh, 600px); width: 100%; border-radius: 16px; border: 1px solid rgb(154 217 231 / .12); background: var(--labz-background); overflow: clip; margin-inline: auto; display: flex; align-items: center; justify-content: center; padding: 48px 32px; }
+.center { position: relative; z-index: 2; text-align: center; width: min(100%, 780px); }
+.entrance { margin: 0 0 24px; padding-top: 28px; border-top: 1px solid rgb(255 255 255 / .1); font-family: var(--font-bitcount), monospace; font-size: 12px; line-height: 1.4; letter-spacing: .03em; color: #b3bbb2; }
+.sign { position: relative; display: inline-block; max-width: 100%; padding: 24px 32px; border: 1px solid rgb(208 239 121 / .4); border-radius: 8px; background: rgb(0 0 0 / .12); box-shadow: 0 0 32px rgb(208 239 121 / .04), inset 0 0 24px rgb(208 239 121 / .025); }
+.sign::before, .sign::after { content: ''; position: absolute; left: 16px; right: 16px; height: 3px; background: radial-gradient(circle, var(--labz-lime) 1px, transparent 1.5px) 0 0 / 20px 3px; opacity: .65; pointer-events: none; }
+.sign::before { top: 10px; } .sign::after { bottom: 10px; }
+.sign h2 { margin: 0; font-family: var(--font-bitcount), monospace; font-size: clamp(40px, 4.5vw, 76px); font-weight: 400; letter-spacing: -.045em; line-height: 1.1; color: var(--labz-lime); white-space: nowrap; }
+.headline { margin: 24px auto 0; font-family: var(--font-wordmark), sans-serif; font-size: clamp(22px, 1.8vw, 28px); line-height: 1.3; letter-spacing: -.035em; }
+.description { max-width: 440px; margin: 16px auto 0; font-size: 14px; line-height: 1.6; color: var(--labz-muted); }
+.action { margin-top: 24px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.action a, .action button { display: inline-flex; align-items: center; gap: 28px; border: 1px solid rgb(240 239 233 / .22); border-radius: 4px; padding: 14px 20px; color: var(--labz-paper); font-family: var(--font-ui), sans-serif; font-size: 14px; background: transparent; }
+.action button { cursor: default; color: #d1cdda; }
+.status { font-family: var(--font-bitcount), monospace; font-size: 12px; color: var(--labz-muted); }
+.objects { position: absolute; inset: 0; pointer-events: none; }
+.object { position: absolute; display: flex; flex-direction: column; gap: 14px; min-width: 112px; padding: 16px 20px; border: 1px solid currentColor; border-radius: 5px; background: var(--labz-background); font-family: var(--font-bitcount), monospace; font-size: 17px; line-height: 1.2; }
+.objectDetail { font-family: var(--font-ui), sans-serif; font-size: 9px; letter-spacing: .1em; opacity: .65; }
+.game { top: 17%; left: 3%; color: var(--labz-pink); border-radius: 14px; }
+.experiment { top: 8%; right: 5%; color: var(--labz-cyan); }
+.ai { top: 43%; right: 0; color: var(--labz-lime); min-width: 90px; }
+.web { top: 48%; left: 0; color: var(--labz-cyan); }
+@media (max-width: 1199px) { .center { width: min(76%, 700px); } .sign { padding-inline: 24px; } .object { padding: 12px 14px; min-width: 90px; font-size: 14px; } .experiment { right: 3%; } }
+@media (min-width: 768px) and (max-width: 1023px) { .universe { padding-block: 64px; } .ai { display: none; } }
+@media (max-width: 767px) { .section { padding-bottom: 64px; } .universe { min-height: 0; padding: 112px 20px 48px; border-radius: 12px; } .center { width: 100%; } .sign { padding: 24px 16px; } .sign h2 { font-size: clamp(32px, 8.4vw, 60px); } .headline { font-size: 21px; margin-top: 24px; } .description { max-width: 340px; font-size: 14px; } .game { top: 24px; left: 2%; font-size: 11px; gap: 8px; padding: 9px 12px; } .experiment { top: 28px; right: 2%; font-size: 11px; gap: 8px; padding: 9px 12px; } .ai, .web { display: none; } }

@@ -1,0 +1,37 @@
+.widget { --mini-bg: #f2f3f0; --mini-ink: #242623; position: fixed; z-index: 15; right: max(24px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); color: var(--mini-ink); }
+.widget[data-tone=dark] { --mini-bg: #242623; --mini-ink: #eceee8; }
+.widget[data-raised=true] { bottom: max(128px, env(safe-area-inset-bottom)); }
+.avatar { display: block; margin-left: auto; width: 56px; height: 84px; padding: 0; border: 0; background: none; filter: drop-shadow(0 2px 1px rgb(0 0 0 / .15)); }
+.avatar svg { width: 100%; height: 100%; }
+.bubble, .panel { position: absolute; bottom: 96px; right: 0; width: 292px; max-width: calc(100vw - 32px); max-height: calc(100dvh - 240px); overflow-y: auto; padding: 20px; border: 1px solid rgb(114 119 111 / .3); border-radius: 7px; background: var(--mini-bg); color: var(--mini-ink); box-shadow: 0 8px 24px rgb(0 0 0 / .08); font-size: 14px; line-height: 1.55; }
+.bubble { padding-right: 32px; }.bubble > button { position: absolute; right: 8px; top: 6px; }
+.widget button, .dialog button { font: inherit; }
+.bubble > button, .panelHeader button, .dialogHeader button { border: 0; background: none; color: inherit; padding: 8px; }
+.panelHeader, .dialogHeader { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.panelHeader h2 { font-family: var(--font-bitcount), monospace; font-size: 18px; font-weight: 400; margin: 0; }
+.panel p { margin: 20px 0; }.line { display: block; }
+.options { display: grid; margin-top: 16px; }
+.options button, .options a { text-align: left; padding: 12px 0; border: 0; border-top: 1px solid rgb(114 119 111 / .18); color: inherit; background: none; font-size: 14px; }
+.options button:hover, .options a:hover { opacity: .7; }
+.restore { padding: 8px; border: 0; background: var(--mini-bg); color: var(--mini-ink); font-size: 10px !important; border-radius: 3px; }
+.dialog { width: min(520px, calc(100% - 32px)); max-height: calc(100dvh - 48px); padding: 28px; border: 1px solid rgb(36 38 35 / .12); border-radius: 8px; background: #f2f3f0; color: #242623; overflow-y: auto; }
+.dialog::backdrop { background: rgb(23 26 24 / .35); }
+.dialogHeader h2 { margin: 0; font-family: var(--font-wordmark), sans-serif; font-size: 25px; font-weight: 500; letter-spacing: -.035em; }
+.step { font-family: var(--font-bitcount), monospace; font-size: 13px; margin-block: 28px; color: #62675f; }
+.dialog form > label { display: grid; gap: 10px; margin-bottom: 20px; font-size: 14px; }
+.dialog input:not([type=radio]), .dialog textarea, .dialog select { width: 100%; padding: 12px; border: 1px solid rgb(36 38 35 / .2); border-radius: 4px; font: inherit; color: inherit; background: #fff; }
+.dialog textarea { resize: vertical; }.dialog fieldset { border: 0; padding: 0; margin: 0; }.dialog legend { margin-bottom: 16px; }
+.modelChoices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }.modelChoices label { display: flex; align-items: center; gap: 10px; padding: 20px 12px; border: 1px solid rgb(36 38 35 / .12); }
+.formActions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px; }.formActions button { padding: 12px 16px; border: 1px solid #242623; border-radius: 4px; background: none; }.formActions button:last-child { background: #242623; color: #f2f3f0; }
+.localHint { font-size: 12px; color: #62675f; line-height: 1.6; }
+.noteAnchor { position: absolute; left: 0; bottom: 200px; width: 1px; height: 1px; pointer-events: none; }
+.noteSeal { position: absolute; z-index: 4; left: var(--gutter); bottom: 12px; max-width: 120px; padding: 7px 12px; border: 1px solid rgb(36 38 35 / .15); font-family: var(--font-bitcount), monospace; font-size: 11px; line-height: 1.2; color: #242623; box-shadow: 0 2px 4px rgb(0 0 0 / .08); animation: paste .3s ease-out; }
+@keyframes paste { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.noteSeal[data-section=labz] { left: auto; right: 0; }
+.noteSeal[data-model="Post-it"], .note[data-model="Post-it"], .modelChoices [data-model="Post-it"] { background: #e8d995; }
+.noteSeal[data-model=Ticket], .note[data-model=Ticket], .modelChoices [data-model=Ticket] { background: #d8e1d5; border-style: dashed; }
+.noteSeal[data-model=Papel], .note[data-model=Papel], .modelChoices [data-model=Papel] { background: #fffdf7; }
+.noteSeal[data-model=Sticker], .note[data-model=Sticker], .modelChoices [data-model=Sticker] { background: #d1dae8; border-radius: 12px; }
+.noteList { display: grid; gap: 20px; }.note { padding: 24px; border: 1px solid rgb(36 38 35 / .15); }.note > span { font-family: var(--font-bitcount), monospace; font-size: 12px; }.note p { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15px; line-height: 1.65; }.note strong { display: block; font-size: 13px; }.note button { margin-top: 20px; border: 0; border-bottom: 1px solid currentColor; padding: 4px 0; background: none; font-size: 11px; }
+@media (max-width: 767px) { .widget { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); }.avatar { width: 44px; height: 66px; }.bubble, .panel { bottom: 78px; width: 280px; }.dialog { padding: 20px; }.noteSeal { bottom: 8px; } }
+@media (prefers-reduced-motion: reduce) { .widget *, .noteSeal { scroll-behavior: auto; }.noteSeal { animation: none; } }
