@@ -24,15 +24,14 @@ export function Contact() {
  return <section ref={section} id="contato" className="contact-section" aria-labelledby="contact-heading">
   <div className="contact-panel" aria-hidden="true" />
   <div className="site-container contact-content">
-   <motion.span className="contact-label" {...reveal(0, 6)}>(05) CONTATO</motion.span>
-   <h2 id="contact-heading" className="contact-heading">
-    <span className="contact-mask"><motion.span {...reveal(.06, 28)}>Tem algo em</motion.span></span>
-    <span className="contact-mask"><motion.span className="contact-pixel" {...reveal(.2, 32)}>mente?</motion.span></span>
-   </h2>
-   <div className="contact-bottom">
-    <motion.p {...reveal(.28, 10)}>Seja para conversar sobre uma oportunidade, um projeto, uma ideia ou simplesmente trocar uma conversa sobre design e tecnologia.</motion.p>
-    <motion.a className="contact-action" href={CONTACT_HREF} target="_blank" rel="noopener noreferrer" aria-label="Vamos conversar pelo WhatsApp, abre em nova aba" {...reveal(.36, 10)}>Vamos conversar <span aria-hidden="true">↗</span></motion.a>
+   <div className="contact-intro">
+    <motion.span className="contact-label" {...reveal(0, 6)}>(05) CONTATO</motion.span>
+    <motion.h2 id="contact-heading" className="contact-heading" {...reveal(.06, 12)}>Tem algo em mente?</motion.h2>
    </div>
+   <motion.div className="contact-bottom" {...reveal(.12, 10)}>
+    <p>Tem um projeto, uma ideia ou só quer conversar sobre design e tecnologia?</p>
+    <a className="contact-action" href={CONTACT_HREF} target="_blank" rel="noopener noreferrer" aria-label="Vamos conversar pelo WhatsApp, abre em nova aba"><span>Vamos conversar</span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" /></svg></a>
+   </motion.div>
   </div>
  </section>;
 }

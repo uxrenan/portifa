@@ -63,11 +63,12 @@ export function Footer() {
   <div className="footer-background" aria-hidden="true" />
   <motion.div className="site-container footer-content" initial={reduced ? false : { opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .15 }} transition={{ duration: reduced ? 0 : .5 }}>
    <div className="footer-top">
-    <div className="footer-identity"><a href="#" className="footer-wordmark" aria-label="Renan — voltar ao início">Renan</a><p>Product / UX/UI Designer</p><div className="footer-socials"><a href="https://www.linkedin.com/in/renansm/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/uxrenan" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:renansomarques@gmail.com">E-mail ↗</a></div></div>
-    <nav aria-label="Navegação do rodapé" className="footer-links"><a href="#projetos">Projetos</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#labz">Labz</a><a href="#contato">Contato</a></nav>
+    <div className="footer-identity"><a href="#" aria-label="Renan Marques — voltar ao início">Renan Marques</a><p>Product / UX/UI Designer<br />Rio Grande, Brasil</p></div>
+    <div className="footer-socials"><a href="https://www.linkedin.com/in/renansm/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/uxrenan" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:renansomarques@gmail.com">E-mail ↗</a></div>
+    <nav aria-label="Navegação do rodapé" className="footer-links"><a href="#projetos">Projetos</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#labz">Labz</a></nav>
    </div>
    <div className="footer-meta"><span>© 2026 Renan Marques</span><span>Feito com curiosidade.</span></div>
-   <div ref={area} className="footer-collage" data-draggable={draggable}><span className="footer-monument" aria-hidden="true">Renan</span>{stickers.map((item, index) => <FooterSticker key={item.kind} item={item} index={index} area={area} draggable={draggable} reduced={reduced} />)}</div>
+   <div ref={area} className="footer-collage" data-draggable={draggable}>{stickers.map((item, index) => <FooterSticker key={item.kind} item={item} index={index} area={area} draggable={draggable} reduced={reduced} />)}</div>
   </motion.div>
  </footer>;
 }
