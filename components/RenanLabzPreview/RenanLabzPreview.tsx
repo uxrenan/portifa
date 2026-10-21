@@ -15,7 +15,6 @@ const objects = [
 export function RenanLabzPreview() {
  const reduced = !!useReducedMotion();
  return <section id="labz" className={styles.section} aria-labelledby="labz-title">
-  <p className={styles.entrance}>EXPERIMENTOS / EM CONSTRUÇÃO</p>
   <div className={styles.universe}>
    <div className={styles.objects} aria-hidden="true">{objects.map((item, index) => <motion.div key={item.kind} className={`${styles.object} ${styles[item.kind]}`} initial={reduced ? false : { opacity: 0, y: 12, rotate: item.rotation - 3 }} whileInView={{ opacity: 1, y: 0, rotate: item.rotation }} viewport={{ once: true, amount: .2 }} transition={{ duration: reduced ? 0 : .55, delay: reduced ? 0 : index * .04 }}><span className={styles.objectDetail}>{item.detail}</span><span>{item.label}</span></motion.div>)}</div>
    <motion.div className={styles.center} initial={reduced ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: reduced ? 0 : .65 }}>

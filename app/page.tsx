@@ -9,5 +9,5 @@ import { EditorialPause } from "@/components/EditorialPause/EditorialPause";
 import { MiniRenan } from "@/components/MiniRenan/MiniRenan";
 
 export default function Home() {
- return <><Header /><Hero /><Projects /><EditorialPause /><Services /><About /><Contact /><Footer /><MiniRenan /></>;
+ return <><Header /><Hero /><Projects /><Services /><EditorialPause /><About /><Contact /><Footer /><MiniRenan /></>;
 }

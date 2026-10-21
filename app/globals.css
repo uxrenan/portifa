@@ -1,12 +1,12 @@
-:root { --paper: #f2f3f0; --ink: #242623; --site-width: calc(100vw - 32px); --gutter: 16px; --header-top: 32px; --line-light: rgb(36 38 35 / .045); --line-dark: rgb(236 238 232 / .055); }
+:root { --surface-home: #fff; --paper: #f2f3f0; --ink: #242623; --site-width: calc(100vw - 32px); --gutter: 16px; --header-top: 32px; --line-light: rgb(36 38 35 / .045); --line-dark: rgb(236 238 232 / .055); }
 @media (min-width: 768px) { :root { --site-width: calc(100vw - 48px); --gutter: 24px; } }
 @media (min-width: 1024px) { :root { --site-width: min(1520px, calc(100vw - 128px)); --gutter: max(64px, calc((100vw - 1520px) / 2)); } }
 .site-container { width: var(--site-width); margin-inline: auto; }
 :root { --accent-blue: #3F5FFF; --accent-orange: #FF6433; --accent-green: #4F7355; --accent-yellow: #E9BB3F; --accent-purple: #8A63D2; --font-signature: var(--font-bitcount); }
-.type-signature { font-family: var(--font-signature), monospace; font-weight: 400; }
+.type-signature { font-family: var(--type-accent); font-weight: 400; }
 * { box-sizing: border-box; }
-html { background: var(--paper); color: var(--ink); overflow-x: clip; }
-body { margin: 0; width: 100vw; overflow-x: clip; font-family: var(--font-ui), sans-serif; -webkit-font-smoothing: antialiased; }
+html { background: var(--surface-home); color: var(--ink); overflow-x: clip; }
+body { margin: 0; width: 100vw; overflow-x: clip; font-family: var(--type-body); -webkit-font-smoothing: antialiased; }
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }
 button { color: inherit; font: inherit; cursor: pointer; }
@@ -55,14 +55,18 @@ button { color: inherit; font: inherit; cursor: pointer; }
  .link-copy, .mobile-arrow { transition: none; }
 }
 
-/* StructuralGrid owns the shared container rails. */
-.site-header::after {
- content: ''; position: absolute; left: 0; right: 0; height: 1px; background: var(--structure-line, var(--line-light)); pointer-events: none;
-}
-.site-header::after { bottom: -28px; }
-.projects-section .project-meta, .projects-section .projects-outro { border-top-color: var(--line-dark); }
 @media (max-width: 767px) {
  /* Mobile uses the full viewport without a persistent scrollbar gutter. */
  html { scrollbar-width: none; }
- .hero-poster::before, .projects-section::before, .projects-grid::before { display: none; }
 }
+
+/* Official typography roles. Intro font variables remain independent. */
+:root { --type-display: var(--font-wordmark), sans-serif; --type-body: var(--font-ui), sans-serif; --type-accent: var(--font-bitcount), monospace; }
+.type-display { font-family: var(--type-display); }
+.type-body { font-family: var(--type-body); }
+.type-accent { font-family: var(--type-accent); }
+h1, h2, h3 { font-family: var(--type-display); }
+p, input, textarea, select { font-family: var(--type-body); }
+.hero-topline, .projects-eyebrow, .projects-outro > span, .service-support > span, .project-meta > span:last-child, .overlay-label, .mobile-number, .language-selector { font-family: var(--type-accent); }
+.header-contact, .contact-action, .about-actions, .projects-filters button { font-family: var(--type-body); }
+.mobile-links a { font-family: var(--type-display); }

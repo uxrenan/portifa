@@ -1,5 +1,4 @@
 "use client";
-import { StructuralGrid } from "@/components/StructuralGrid/StructuralGrid";
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -81,7 +80,6 @@ export function Services() {
     };
   }, [compact]);
   return <section id="servicos" className="services-section" aria-labelledby="services-title">
-  <StructuralGrid variant="minimal" />
     <div className="services-header-surface" aria-hidden="true" />
     <div className="services-content">
     <header className="services-intro">

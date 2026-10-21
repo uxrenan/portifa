@@ -4,7 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll/SmoothScroll";
 
 const ui = Instrument_Sans({ subsets: ["latin"], weight: "400", variable: "--font-ui" });
-const signature = Bitcount_Prop_Single({ subsets: ["latin"], weight: "400", variable: "--font-bitcount", adjustFontFallback: false, fallback: ["monospace"] });
+const signature = Bitcount_Prop_Single({ subsets: ["latin"], weight: "variable", axes: ["CRSV", "ELSH"], variable: "--font-bitcount", adjustFontFallback: false, fallback: ["monospace"] });
 const wordmark = Space_Grotesk({ subsets: ["latin"], weight: "500", variable: "--font-wordmark" });
 const editorial = Cormorant_Garamond({ subsets: ["latin"], weight: "500", variable: "--font-editorial" });
 const contrast = Bodoni_Moda({ subsets: ["latin"], weight: "500", variable: "--font-contrast" });

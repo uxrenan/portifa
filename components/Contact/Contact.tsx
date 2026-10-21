@@ -1,5 +1,4 @@
 "use client";
-import { StructuralGrid } from "@/components/StructuralGrid/StructuralGrid";
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
@@ -23,7 +22,6 @@ export function Contact() {
   transition: { duration: reduced ? 0 : .65, delay: reduced ? 0 : delay, ease: [.22, 1, .36, 1] as const },
  });
  return <section ref={section} id="contato" className="contact-section" aria-labelledby="contact-heading">
-  <StructuralGrid tone="dark" />
   <div className="contact-panel" aria-hidden="true" />
   <div className="site-container contact-content">
    <motion.span className="contact-label" {...reveal(0, 6)}>(05) CONTATO</motion.span>

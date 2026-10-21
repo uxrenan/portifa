@@ -1,5 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import { useMiniRenanUnlock } from "../../hooks/useMiniRenanUnlock";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MiniRenanAvatar } from "./MiniRenanAvatar";
@@ -7,13 +9,17 @@ import { MiniDialog, NoteComposer } from "./NoteDialog";
 import { CONTEXT_LINES, LINES, NOTE_KEY, NOTE_MODELS, NOTE_SECTIONS, SESSION_KEY, type AvatarState, type Note } from "./data";
 import styles from "./mini.module.css";
 
+const DestructionMode = dynamic(() => import("../destruction-mode/DestructionMode"), { ssr: false });
+
 type Session = { hidden: boolean; seen: string[]; count: number; last: number };
-type Mode = "idle" | "menu" | "more" | "hide";
+type Mode = "idle" | "menu" | "more" | "hide" | "destroy";
 const freshSession = (): Session => ({ hidden: false, seen: [], count: 0, last: 0 });
 
 export function MiniRenan() {
  const reduced = !!useReducedMotion();
  const [ready, setReady] = useState(false);
+ const { unlocked, firstUnlock } = useMiniRenanUnlock(ready);
+ const [destructionMode, setDestructionMode] = useState(false);
  const [hidden, setHidden] = useState(false);
  const [mode, setMode] = useState<Mode>("idle");
  const [speech, setSpeech] = useState("");
@@ -49,7 +55,7 @@ export function MiniRenan() {
   return () => { observer.disconnect(); clearTimeout(speechTimer.current); };
  }, []);
  useEffect(() => {
-  if (!ready || hidden) return;
+  if (!ready || !unlocked || hidden || destructionMode || firstUnlock) return;
   const spontaneous = (key: string, text: string) => {
    const s = session.current;
    const limit = matchMedia("(max-width: 767px)").matches ? 1 : 3;
@@ -70,7 +76,7 @@ export function MiniRenan() {
   }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
   document.querySelectorAll(".hero-poster,#projetos,#labz,#servicos,#sobre,#contato,.site-footer,.editorial-pause").forEach(e => observer.observe(e));
   return () => { clearTimeout(greeting); clearTimeout(invitation); observer.disconnect(); };
- }, [ready, hidden, speak, storeSession]);
+ }, [ready, unlocked, hidden, destructionMode, firstUnlock, speak, storeSession]);
  useEffect(() => {
   if (!ready) return;
   let observer: IntersectionObserver;
@@ -110,14 +116,26 @@ export function MiniRenan() {
   requestAnimationFrame(() => { const anchor = document.createElement("a"); anchor.href = `#mini-note-anchor-${targetIndex}`; document.body.append(anchor); anchor.click(); anchor.remove(); });
   return null;
  };
- if (!ready) return null;
+ useEffect(() => {
+  if (!firstUnlock) return;
+  session.current.seen.push("intro"); session.current.last = Date.now(); storeSession();
+  const timers = [setTimeout(() => speak("Oi.", "talking", 1000), 750), setTimeout(() => speak("Você chegou longe o suficiente.", "talking", 2200), 1800), setTimeout(() => speak("Mini Renan desbloqueado", "happy", 2000), 4200)];
+  return () => timers.forEach(clearTimeout);
+ }, [firstUnlock, speak, storeSession]);
+ useEffect(() => {
+  if (mode !== "destroy") return;
+  const timer = setTimeout(() => speak("Eu demorei pra fazer isso aqui."), 650);
+  return () => clearTimeout(timer);
+ }, [mode, speak]);
+ if (!ready || !unlocked) return null;
+ if (destructionMode) return <DestructionMode onExit={() => { setDestructionMode(false); speak("Finalmente.", "happy", 2500); }} />;
  return <>
   <div ref={widget} className={styles.widget} data-tone={dark ? "dark" : "light"} data-raised={raised}>
-   <AnimatePresence mode="wait">{hidden ? <motion.button key="restore" className={styles.restore} initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => { session.current.hidden = false; storeSession(); setHidden(false); speak(LINES.returned, "happy"); }}>chamar Mini Renan</motion.button> : <motion.div key="avatar" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={reduced ? { opacity: 0 } : { opacity: 0, y: 24, rotate: 8 }} transition={{ duration: .25 }}>
+   <AnimatePresence mode="wait">{hidden ? <motion.button key="restore" className={styles.restore} initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => { session.current.hidden = false; storeSession(); setHidden(false); speak(LINES.returned, "happy"); }}>chamar Mini Renan</motion.button> : <motion.div key="avatar" initial={{ opacity: 0 }} animate={firstUnlock && !reduced ? { opacity: [0, 1, 0, 1], y: [35, 0, 35, 0] } : { opacity: 1 }} exit={reduced ? { opacity: 0 } : { opacity: 0, y: 24, rotate: 8 }} transition={{ duration: firstUnlock && !reduced ? .75 : .25 }}>
     {(speech && mode === "idle") && <div className={styles.bubble} role="status">{speech}<button type="button" onClick={() => setSpeech("")} aria-label="Fechar fala">×</button></div>}
     {mode !== "idle" && <div ref={panel} className={styles.panel} role="dialog" aria-label="Mini Renan" data-lenis-prevent="true">
      <div className={styles.panelHeader}><h2>{mode === "menu" ? "O que foi?" : "Ei, pessoa."}</h2><button type="button" onClick={close} aria-label="Fechar menu">×</button></div>
-     {mode === "menu" ? <div className={styles.options}><button onClick={() => { setMode("idle"); setSpeech(""); setComposer(true); }}>✎ Deixar um recado</button><button onClick={() => { setMode("more"); setExpression("judging"); setSpeech(""); }}>? Saber mais</button><button onClick={() => { setHideStep(0); setMode("hide"); setExpression("panic"); setSpeech(""); }}>× Me esconder</button></div> : mode === "more" ? <><p>{LINES.more}</p><div className={styles.options}><button onClick={close}>Tá bom, eu leio</button><a href="#sobre" onClick={close}>Me leva pro Sobre ↗</a></div></> : <><p aria-live="polite">{LINES.hide.slice(0, hideStep + 1).map(text => <span key={text} className={styles.line}>{text}</span>)}</p>{hideStep === 2 && <div className={styles.options}><button onClick={() => { close(); speak(LINES.cancel, "happy", 2500); }}>Cancelar</button><button onClick={() => { session.current.hidden = true; storeSession(); setHidden(true); setMode("idle"); setExpression("hidden"); setSpeech(""); }}>Sim, pode sumir</button></div>}</>}
+     {mode === "menu" ? <div className={styles.options}><button onClick={() => { setMode("idle"); setSpeech(""); setComposer(true); }}>✎ Deixar um recado</button><button onClick={() => { setMode("more"); setExpression("judging"); setSpeech(""); }}>? Saber mais</button><button onClick={() => { setMode("destroy"); setExpression("panic"); speak("Tem certeza?"); }}>⌁ Destruir esse site</button><button onClick={() => { setHideStep(0); setMode("hide"); setExpression("panic"); setSpeech(""); }}>× Me esconder</button></div> : mode === "more" ? <><p>{LINES.more}</p><div className={styles.options}><button onClick={close}>Tá bom, eu leio</button><a href="#sobre" onClick={close}>Me leva pro Sobre ↗</a></div></> : mode === "destroy" ? <><p aria-live="polite">{speech}</p><div className={styles.options}><button onClick={close}>Cancelar</button><button onClick={() => { setMode("idle"); setSpeech(""); clearTimeout(speechTimer.current); setDestructionMode(true); }}>Destruir mesmo assim</button></div></> : <><p aria-live="polite">{LINES.hide.slice(0, hideStep + 1).map(text => <span key={text} className={styles.line}>{text}</span>)}</p>{hideStep === 2 && <div className={styles.options}><button onClick={() => { close(); speak(LINES.cancel, "happy", 2500); }}>Cancelar</button><button onClick={() => { session.current.hidden = true; storeSession(); setHidden(true); setMode("idle"); setExpression("hidden"); setSpeech(""); }}>Sim, pode sumir</button></div>}</>}
     </div>}
     <button ref={avatar} className={styles.avatar} aria-label="Mini Renan — abrir menu" aria-expanded={mode !== "idle"} onClick={() => { clearTimeout(speechTimer.current); setSpeech(""); setExpression("neutral"); setMode(mode === "idle" ? "menu" : "idle"); }}><MiniRenanAvatar state={expression} variant={variant} /></button>
    </motion.div>}</AnimatePresence>

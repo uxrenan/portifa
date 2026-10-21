@@ -1,26 +1,26 @@
 .contact-section { position: relative; color: #eceee8; padding-block: 0 16px; scroll-margin-top: 110px; }
 .contact-panel { position: absolute; inset: 0 calc(16px + var(--contact-scrollbar, 0px)) 16px 16px; background: #171a18; border-radius: 20px; pointer-events: none; }
-.contact-content { position: relative; padding-block: 88px 96px; min-height: 780px; display: flex; flex-direction: column; }
-.contact-label { display: inline-block; align-self: flex-start; font-family: var(--font-ui), sans-serif; font-size: 12px; letter-spacing: .06em; color: #b3bbb2; }
-.contact-heading { margin: 72px 0 64px; font-family: var(--font-wordmark), sans-serif; font-size: clamp(72px, 8.6vw, 148px); font-weight: 500; line-height: 1.08; letter-spacing: -.055em; }
+.contact-content { position: relative; z-index: 2; padding-block: 88px 96px; min-height: 780px; display: flex; flex-direction: column; }
+.contact-label { display: inline-block; align-self: flex-start; font-family: var(--type-accent); font-size: 12px; letter-spacing: .06em; color: #b3bbb2; }
+.contact-heading { margin: 72px 0 64px; font-family: var(--type-display); font-size: clamp(72px, 8.6vw, 148px); font-weight: 500; line-height: 1.08; letter-spacing: -.055em; }
 .contact-mask { display: block; overflow: hidden; padding-bottom: .06em; }
 .contact-mask > span { display: block; }
-.contact-heading .contact-pixel { font-family: var(--font-bitcount), monospace; font-weight: 400; letter-spacing: -.035em; color: var(--accent-blue); }
-.contact-bottom { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; column-gap: 80px; border-top: 1px solid var(--line-dark); padding-top: 40px; margin-top: auto; }
+.contact-heading .contact-pixel { font-family: var(--type-display); font-weight: inherit; letter-spacing: -.035em; color: var(--accent-blue); }
+.contact-bottom { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; column-gap: 80px; position: relative; padding-top: 41px; margin-top: auto; }
 .contact-bottom p { margin: 0; max-width: 540px; color: #b3bbb2; font-size: 17px; line-height: 1.7; }
 .contact-action { display: inline-flex; align-items: center; gap: 36px; padding-block: 10px; border-bottom: 1px solid rgb(236 238 232 / .3); font-size: 24px; letter-spacing: -.025em; transition: border-color .25s; }
 .contact-action > span { display: inline-block; transition: transform .25s; }
 .contact-action:hover { border-color: #eceee8; }
 .contact-action:hover > span { transform: translate(3px, -3px); }
 @media (max-width: 1023px) { .contact-panel { left: 12px; right: calc(12px + var(--contact-scrollbar, 0px)); } .contact-content { min-height: 700px; padding-block: 64px 72px; } .contact-bottom { column-gap: 40px; } .contact-bottom p { font-size: 16px; } .contact-action { font-size: 21px; gap: 24px; } }
-@media (max-width: 767px) { .contact-section { padding-bottom: 8px; } .contact-panel { inset: 0 calc(8px + var(--contact-scrollbar, 0px)) 8px 8px; border-radius: 14px; } .contact-content { padding-block: 48px 56px; min-height: 640px; } .contact-heading { margin-block: 64px 56px; font-size: clamp(42px, 11.7vw, 88px); } .contact-heading .contact-pixel { font-size: 1.12em; } .contact-bottom { grid-template-columns: 1fr; gap: 32px; padding-top: 32px; } .contact-action { justify-self: start; font-size: 22px; } }
+@media (max-width: 767px) { .contact-section { padding-bottom: 8px; } .contact-panel { inset: 0 calc(8px + var(--contact-scrollbar, 0px)) 8px 8px; border-radius: 14px; } .contact-content { padding-block: 48px 56px; min-height: 640px; } .contact-heading { margin-block: 64px 56px; font-size: clamp(42px, 11.7vw, 88px); } .contact-heading .contact-pixel { font-size: 1.12em; } .contact-bottom { grid-template-columns: 1fr; gap: 32px; padding-top: 33px; } .contact-action { justify-self: start; font-size: 22px; } }
 @media (prefers-reduced-motion: reduce) { .contact-mask { overflow: visible; } .contact-action, .contact-action > span { transition: none; } }
 
 /* Monumental closing composition, sized from the shared structural container. */
 .contact-content { min-height: 0; padding-block: 88px 88px; }
 .contact-heading { font-size: clamp(110px, calc(var(--site-width) * .17), 258px); line-height: .98; margin-block: 64px 56px; }
 .contact-heading .contact-pixel { font-size: 1.08em; }
-.contact-bottom { margin-top: 0; gap: 64px; padding-top: 40px; }
+.contact-bottom { margin-top: 0; gap: 64px; padding-top: 41px; }
 .contact-action { font-size: clamp(30px, 3vw, 46px); gap: 48px; padding-block: 8px 16px; }
 .contact-action:hover { color: #fff; }
 @media (max-width: 1023px) { .contact-content { padding-block: 72px; } .contact-heading { font-size: calc(var(--site-width) * .17); } .contact-bottom { gap: 32px; } .contact-action { font-size: 30px; gap: 28px; } }
