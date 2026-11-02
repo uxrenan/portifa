@@ -68,11 +68,13 @@ export const ptBR = {
     soon: "Em breve",
     pending: "em preparação",
     viewProject: "Ver projeto",
+    visit: "Ver site",
+    newTab: "abre em nova aba",
     /** Conteúdo provisório, na ordem de config/projects.ts. */
     items: [
       { title: "AVA / Plataforma Educacional", category: "Produto digital · Educação", description: "Uma experiência digital voltada à aprendizagem.", alt: "Mockup provisório do AVA: painel de cursos num notebook e num celular, em tons de verde." },
+      { title: "Condomínio Waldemar", category: "Website institucional · Rio Grande, RS", description: "O site do Parque Residencial Waldemar Pereira Duarte.", alt: "Notebook sobre uma mesa redonda mostrando a página inicial do site do Condomínio Waldemar: prédios do condomínio sob o céu azul e o título “Um condomínio com vida própria.”" },
       { title: "Optimiz.ai", category: "Produto digital · UX/UI", description: "Estratégia, interface e experiência em um mesmo produto.", alt: "Mockup provisório do Optimiz.ai: painel com gráficos e indicadores numa janela de navegador." },
-      { title: "Website / Client Project", category: "Website · Design digital", description: "Uma presença digital construída em torno da experiência.", alt: "Mockup provisório de um website institucional no desktop e no celular, em tons de azul." },
       { title: "Projeto placeholder", category: "Projeto em seleção", description: "Um novo trabalho para completar esta seleção.", alt: "Mockup provisório e neutro de um aplicativo em dois celulares, reservado para o quarto projeto." },
     ],
   },

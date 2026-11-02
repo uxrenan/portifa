@@ -9,8 +9,10 @@ import { useI18n } from "@/i18n/I18nProvider";
 const pointerQuery = "(min-width: 768px) and (hover: hover) and (pointer: fine)";
 const spring = { stiffness: 550, damping: 42, mass: .45 };
 
-export function ProjectVisual({ children, title }: { children: ReactNode; title: string }) {
+/** Cases without a page yet stay inert; a live site opens in a new tab. */
+export function ProjectVisual({ children, title, href }: { children: ReactNode; title: string; href?: string }) {
   const { t } = useI18n();
+  if (href) return <a className="project-visual" href={href} target="_blank" rel="noopener noreferrer" aria-label={`${t.projects.visit}: ${title} (${t.projects.newTab})`}>{children}</a>;
   return <a className="project-visual" aria-disabled="true" tabIndex={-1} aria-label={`${t.projects.viewProject}: ${title} — ${t.projects.pending}`}>{children}</a>;
 }
 

@@ -18,8 +18,8 @@ function Project({ project, index, reduced }: { project: SelectedProject; index:
   // Cards side by side start a beat apart.
   const delay = (index % 2) * 140;
   const style = { "--project-delay": `${delay}ms` } as CSSProperties;
-  return <motion.article ref={card} layout={!reduced} className="project" data-shown={reduced || shown} style={style} data-project-card={project.soon ? t.projects.soon : t.projects.cursor} aria-labelledby={`project-${project.number}`}>
-    <ProjectVisual title={copy.title}>
+  return <motion.article ref={card} layout={!reduced} className="project" data-shown={reduced || shown} style={style} data-project-card={project.soon ? t.projects.soon : project.external ? t.projects.visit : t.projects.cursor} aria-labelledby={`project-${project.number}`}>
+    <ProjectVisual title={copy.title} href={project.external ? project.href : undefined}>
       <div className="project-image-motion">
         <Image src={project.image} alt={copy.alt} fill sizes="(max-width: 767px) 92vw, 46vw" className="project-image" />
       </div>
