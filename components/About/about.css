@@ -45,7 +45,7 @@
 .about-text p { margin: 0 0 32px; font-family: var(--type-body); font-size: 28px; line-height: 1.4; letter-spacing: -.01em; color: var(--about-muted); }
 .about-text p:last-child { margin-bottom: 0; }
 .about-text strong { font-weight: 600; color: var(--ink); }
-.hero-actions.about-actions { justify-content: flex-start; margin-top: 48px; }
+.about-actions { display: flex; margin-top: 48px; }
 
 @media (min-width: 768px) and (max-width: 1023px) {
  .about-section { padding-block: 104px 112px; }
@@ -60,6 +60,6 @@
  .about-label { margin-bottom: 20px; font-size: 11px; }
  .about-content h2 { margin-bottom: 28px; }
  .about-text p { margin-bottom: 20px; font-size: 20px; line-height: 1.45; }
- .hero-actions.about-actions { margin-top: 36px; }
+ .about-actions { margin-top: 36px; }
 }
 @media (prefers-reduced-motion: reduce) { .about-photo-layer, .about-mural-tile, .about-mural-tile img, .about-switch, .about-switch-thumb, .about-switch-option svg { transition: none !important; } .about-mural-tile, .about-mural-tile img { transform: none !important; } }

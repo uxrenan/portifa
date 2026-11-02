@@ -6,6 +6,7 @@ import { Intro } from "@/components/Intro/Intro";
 import { MobileMenu } from "@/components/MobileMenu/MobileMenu";
 import { NavLink } from "./NavLink";
 import { LanguageSelector } from "./LanguageSelector";
+import { Button } from "@/components/Button/Button";
 import "./header.css";
 
 type Phase = "loading" | "sequence" | "resolved" | "travel" | "ready";
@@ -105,7 +106,7 @@ export function Header() {
    <motion.button className="menu-button mobile-trigger" aria-expanded={open} aria-haspopup="dialog" aria-controls={open ? "mobile-navigation" : undefined} onClick={() => setOpen(true)} disabled={!ready} initial={{ opacity: 0, y: 8 }} animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 8 }} transition={{ duration: reduced ? 0 : 0.24 }}>Menu <span className="menu-symbol" aria-hidden="true"><i /><i /></span></motion.button>
    <motion.div className="header-actions" inert={!ready} initial={{ opacity: 0, y: 8 }} animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 8 }} transition={{ duration: reduced ? 0 : .24, delay: reduced ? 0 : .18 }}>
     <LanguageSelector />
-    <a className="header-contact" href={CONTACT_HREF} target="_blank" rel="noopener noreferrer" aria-label="Vamos conversar pelo WhatsApp, abre em nova aba">Vamos conversar <span aria-hidden="true">↗</span></a>
+    <Button className="header-contact" size="sm" href={CONTACT_HREF} external aria-label="Vamos conversar pelo WhatsApp, abre em nova aba">Vamos conversar</Button>
    </motion.div>
   </header>
   {phase === "sequence" && <Intro index={index} />}

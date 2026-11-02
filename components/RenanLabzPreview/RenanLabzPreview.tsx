@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { PixelArrow } from "@/components/Button/Button";
 import styles from "./labz.module.css";
 
 // Connect this destination when the full experience is available.
@@ -21,7 +22,7 @@ export function RenanLabzPreview() {
     <div className={styles.sign}><h2 id="labz-title">RENAN LABZ</h2></div>
     <p className={styles.headline}>Experimentos, produtos, jogos<br />e ideias que eu precisava ver funcionando.</p>
     <p className={styles.description}>Um espaço para testar, criar e construir sem precisar justificar demais a ideia primeiro.</p>
-    <div className={styles.action}>{LABZ_HREF ? <a href={LABZ_HREF}>Conhecer o Labz <span aria-hidden="true">↗</span></a> : <><button type="button" disabled aria-describedby="labz-coming-soon">Conhecer o Labz <span aria-hidden="true">↗</span></button><span id="labz-coming-soon" className={styles.status}>Em breve</span></>}</div>
+    <div className={styles.action}>{LABZ_HREF ? <a href={LABZ_HREF}>Conhecer o Labz<PixelArrow /></a> : <><button type="button" disabled aria-describedby="labz-coming-soon">Conhecer o Labz<PixelArrow /></button><span id="labz-coming-soon" className={styles.status}>Em breve</span></>}</div>
    </motion.div>
   </div>
  </section>;

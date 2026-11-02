@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { CONTACT_HREF } from "@/config/identity";
+import { Button } from "@/components/Button/Button";
 import "./contact.css";
 import { PixelConstellation } from "@/components/PixelConstellation/PixelConstellation";
 
@@ -31,7 +32,7 @@ export function Contact() {
    </div>
    <motion.div className="contact-bottom" {...reveal(.12, 10)}>
     <p>Tem um projeto, uma ideia ou só quer conversar sobre design e tecnologia?</p>
-    <a className="contact-action" href={CONTACT_HREF} target="_blank" rel="noopener noreferrer" aria-label="Vamos conversar pelo WhatsApp, abre em nova aba"><span>Vamos conversar</span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" /></svg></a>
+    <Button className="contact-action" tone="dark" href={CONTACT_HREF} external aria-label="Vamos conversar pelo WhatsApp, abre em nova aba">Vamos conversar</Button>
    </motion.div>
   </div>
  </section>;

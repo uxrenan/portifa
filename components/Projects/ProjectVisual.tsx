@@ -1,8 +1,12 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { motion, useSpring } from "framer-motion";
+import { PixelArrow } from "@/components/Button/Button";
+
+/** Labels that lead somewhere get the site's pixel arrow; "Em breve" stays plain. */
+const SOON = "Em breve";
 
 const pointerQuery = "(min-width: 768px) and (hover: hover) and (pointer: fine)";
 const spring = { stiffness: 550, damping: 42, mass: .45 };
@@ -13,6 +17,7 @@ export function ProjectVisual({ children, title }: { children: ReactNode; title:
 
 export function ProjectCursor({ reduced }: { reduced: boolean }) {
   const [label, setLabel] = useState<string | null>(null);
+  const pill = useRef<HTMLSpanElement>(null);
   const x = useSpring(0, spring);
   const y = useSpring(0, spring);
 
@@ -36,7 +41,7 @@ export function ProjectCursor({ reduced }: { reduced: boolean }) {
       const card = document.elementFromPoint(point.x, point.y)?.closest<HTMLElement>("[data-project-card]") ?? null;
       if (!card) { hide(); moved = false; return; }
       const changed = active !== card;
-      const nextLabel = card.dataset.projectCard || "Ver projeto ↗";
+      const nextLabel = card.dataset.projectCard || "Ver projeto";
       if (changed) {
         active?.removeAttribute("data-cursor");
         active = card;
@@ -44,7 +49,8 @@ export function ProjectCursor({ reduced }: { reduced: boolean }) {
       }
       if (activeLabel !== nextLabel) { activeLabel = nextLabel; setLabel(nextLabel); }
       if (moved || changed) {
-        const width = nextLabel === "Em breve" ? 96 : 132;
+        // The pill sizes to its label; before its first paint, an estimate keeps it inside the card.
+        const width = pill.current?.offsetWidth || (nextLabel === SOON ? 96 : 150);
         const rect = card.getBoundingClientRect();
         const left = Math.max(8, Math.min(Math.max(point.x + 12, rect.left + 8), Math.min(rect.right, document.documentElement.clientWidth) - width - 8));
         const top = Math.max(8, Math.min(Math.max(point.y + 12, rect.top + 8), Math.min(rect.bottom, window.innerHeight) - 52));
@@ -84,5 +90,5 @@ export function ProjectCursor({ reduced }: { reduced: boolean }) {
     return () => { media.removeEventListener("change", sync); detach(); };
   }, [reduced, x, y]);
 
-  return label && createPortal(<motion.span className="project-pointer" aria-hidden="true" style={{ x, y, width: label === "Em breve" ? 96 : 132 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : .12 }}>{label}</motion.span>, document.body);
+  return label && createPortal(<motion.span className="project-pointer" aria-hidden="true" ref={pill} style={{ x, y }} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: reduced ? 0 : .16, ease: [.22, 1, .36, 1] }}>{label}{label !== SOON && <PixelArrow />}</motion.span>, document.body);
 }

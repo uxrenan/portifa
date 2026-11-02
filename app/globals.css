@@ -64,5 +64,4 @@ button { color: inherit; font: inherit; cursor: pointer; }
 h1, h2, h3 { font-family: var(--type-display); }
 p, input, textarea, select { font-family: var(--type-body); }
 .hero-topline, .service-support > span, .project-meta > span:last-child, .overlay-label, .mobile-number { font-family: var(--type-accent); }
-.header-contact, .contact-action { font-family: var(--type-body); }
 .mobile-links a { font-family: var(--type-display); }

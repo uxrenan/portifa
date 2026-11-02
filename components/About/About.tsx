@@ -5,6 +5,7 @@ import { useRef, useState, type KeyboardEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ABOUT_PARAGRAPHS, ABOUT_PHOTOS, ABOUT_TITLE } from "@/config/about";
 import { PixelConstellation } from "@/components/PixelConstellation/PixelConstellation";
+import { Button } from "@/components/Button/Button";
 import "./about.css";
 
 const ease = [.22, 1, .36, 1] as const;
@@ -12,10 +13,6 @@ const ease = [.22, 1, .36, 1] as const;
 /** Renders the **bold** spans of a paragraph from the content config. */
 function Emphasis({ text }: { text: string }) {
  return text.split(/(\*\*[^*]+\*\*)/).map((part, index) => part.startsWith("**") ? <strong key={index}>{part.slice(2, -2)}</strong> : part);
-}
-
-function Arrow() {
- return <svg viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" /></svg>;
 }
 
 const MODES = [
@@ -72,8 +69,8 @@ export function About() {
     <motion.span className="about-label" {...reveal(0)}><span className="pixel-marker"><PixelConstellation variant="drift" />SOBRE</span></motion.span>
     <motion.h2 id="about-heading" {...reveal(.06)}>{ABOUT_TITLE}</motion.h2>
     <div className="about-text">{ABOUT_PARAGRAPHS.map((text, index) => <motion.p key={text} {...reveal(.12 + index * .06)}><Emphasis text={text} /></motion.p>)}</div>
-    <motion.div className="hero-actions about-actions" {...reveal(.32)}>
-     <a className="hero-primary" href="#contato"><span className="hero-cta-label">Vamos conversar</span><span className="hero-cta-icon" aria-hidden="true"><Arrow /><Arrow /></span></a>
+    <motion.div className="about-actions" {...reveal(.32)}>
+     <Button href="#contato">Vamos conversar</Button>
     </motion.div>
    </div>
   </div>

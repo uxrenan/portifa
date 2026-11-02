@@ -19,3 +19,4 @@
 @media (max-width: 1199px) { .center { width: min(76%, 700px); } .sign { padding-inline: 24px; } .object { padding: 12px 14px; min-width: 90px; font-size: 14px; } .experiment { right: 3%; } }
 @media (min-width: 768px) and (max-width: 1023px) { .universe { padding-block: 64px; } .ai { display: none; } }
 @media (max-width: 767px) { .section { padding-bottom: 64px; } .universe { min-height: 0; padding: 112px 20px 48px; border-radius: 12px; } .center { width: 100%; } .sign { padding: 24px 16px; } .sign h2 { font-size: clamp(32px, 8.4vw, 60px); } .headline { font-size: 21px; margin-top: 24px; } .description { max-width: 340px; font-size: 16px; } .game { top: 24px; left: 2%; font-size: 11px; gap: 8px; padding: 9px 12px; } .experiment { top: 28px; right: 2%; font-size: 11px; gap: 8px; padding: 9px 12px; } .ai, .web { display: none; } }
+.action :global(.pixel-arrow) { width: 15px; height: 15px; }

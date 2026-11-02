@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import { CONTACT_HREF } from "@/config/identity";
 import { HERO_COPY, HERO_MOTION, HERO_ASSETS } from "@/config/hero";
+import { Button } from "@/components/Button/Button";
 import { HeroObject } from "./HeroObject";
 import { HeroLightBeams } from "./HeroLightBeams";
 import { useHeroEntrance } from "./useHeroEntrance";
@@ -40,8 +41,8 @@ export function Hero() {
       <div className="hero-connect">
         <p className="hero-support-copy">+5 anos transformando ideias em sites, produtos e experiências digitais que <strong>impactam pessoas</strong> — e geram resultados.</p>
         <div className="hero-actions">
-         <a className="hero-primary" href="#projetos"><span className="hero-cta-label">Ver projetos</span><span className="hero-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" /></svg><svg viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" /></svg></span></a>
-         <a className="hero-secondary" href={CONTACT_HREF} target="_blank" rel="noopener noreferrer" aria-label="Vamos conversar pelo WhatsApp, abre em nova aba"><span className="hero-cta-label">Vamos conversar</span><span className="hero-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" /></svg><svg viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" /></svg></span></a>
+         <Button href="#projetos">Ver projetos</Button>
+         <Button variant="secondary" href={CONTACT_HREF} external aria-label="Vamos conversar pelo WhatsApp, abre em nova aba">Vamos conversar</Button>
         </div>
       </div>
     </motion.div>
