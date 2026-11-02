@@ -1,6 +1,9 @@
 // Signature font; the main editorial typography remains independent.
 export const WORDMARK_FONT = "var(--font-bitcount)";
 export const CONTACT_HREF = "https://wa.me/5553991739258";
+/** The same WhatsApp number, as people read it, and the e-mail shown in the contact section. */
+export const CONTACT_PHONE = "(53) 99173-9258";
+export const CONTACT_EMAIL = "renansomarques@gmail.com";
 /** WhatsApp with a ready message (contact.quoteMessage in each language), for budget requests. */
 export const quoteHref = (message: string) => `${CONTACT_HREF}?text=${encodeURIComponent(message)}`;
 // The intro plays once per browser session; repeat visits open straight on the page (faster first paint).

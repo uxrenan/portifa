@@ -26,6 +26,8 @@ export const en: Dictionary = {
     quoteLabel: "Request a quote on WhatsApp, opens in a new tab",
     label: "CONTACT",
     heading: "Have something in mind?",
+    headingBefore: "Have something in",
+    headingAccent: "mind?",
     text: "Need a new website, a landing page or a redesign? Tell me about your project and let's talk about a quote.",
   },
   nav: {

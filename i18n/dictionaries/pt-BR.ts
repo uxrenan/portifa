@@ -27,6 +27,8 @@ export const ptBR = {
     quoteLabel: "Solicitar orçamento pelo WhatsApp, abre em nova aba",
     label: "CONTATO",
     heading: "Tem algo em mente?",
+    headingBefore: "Tem algo em",
+    headingAccent: "mente?",
     text: "Precisa de um site novo, de uma landing page ou de um redesign? Me conte sobre o seu projeto e conversamos sobre um orçamento.",
   },
   nav: {
