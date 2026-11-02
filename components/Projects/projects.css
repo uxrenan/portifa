@@ -47,7 +47,7 @@
    pixel arrow. The arrow draws itself in through its corner, tail first, each time the pill appears. */
 .project-pointer { position: fixed; top: 0; left: 0; z-index: 30; height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 0 16px 0 20px; border-radius: 999px; background: #eceee8; color: #171a18; box-shadow: 0 6px 20px rgb(0 0 0 / .18); font-family: var(--type-body); font-size: 13px; font-weight: 600; line-height: 1; white-space: nowrap; pointer-events: none; user-select: none; transform-origin: 0 0; }
 .project-pointer:not(:has(.pixel-arrow)) { padding-inline: 20px; }
-.project-pointer .pixel-arrow { width: 15px; height: 15px; }
+.project-pointer .pixel-arrow { width: 16px; height: 16px; }
 .project-pointer .pixel-arrow rect { animation: pixel-arrow-enter .4s cubic-bezier(.22, 1, .36, 1) calc(80ms + var(--step) * 22ms) both; }
 @keyframes pixel-arrow-enter { from { transform: translate(-6px, 6px); opacity: 0; } to { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .project-pointer .pixel-arrow rect { animation: none; } }

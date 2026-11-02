@@ -18,8 +18,7 @@
 
 .button[data-size="sm"] { gap: 12px; height: 42px; padding: 0 16px 0 18px; font-size: 12px; font-weight: 500; }
 
-.pixel-arrow { position: relative; flex: 0 0 auto; width: 20px; height: 20px; overflow: visible; fill: currentColor; shape-rendering: crispEdges; }
-.button[data-size="sm"] .pixel-arrow { width: 15px; height: 15px; }
+.pixel-arrow { position: relative; flex: 0 0 auto; width: 16px; height: 16px; overflow: visible; fill: currentColor; shape-rendering: crispEdges; }
 .button[data-variant="secondary"] .pixel-arrow rect:is(:nth-child(1), :nth-child(2)) { fill: var(--accent-blue); }
 .button[data-variant="secondary"] .pixel-arrow rect:is(:nth-child(3), :nth-child(5), :nth-child(11)) { fill: var(--accent-purple); }
 .button[data-variant="secondary"] .pixel-arrow rect:is(:nth-child(4), :nth-child(6), :nth-child(10)) { fill: var(--accent-green); }

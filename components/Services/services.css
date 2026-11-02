@@ -21,7 +21,7 @@
 .service-support li:last-child { border-bottom: 0; }
 /* Link to the service page: a quiet underlined line with the site's pixel arrow, which travels on hover like the buttons. */
 .service-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 20px; font-size: 15px; font-weight: 600; color: var(--ink); text-decoration: underline; text-decoration-color: rgb(36 38 35 / .25); text-underline-offset: 5px; transition: text-decoration-color .2s; }
-.service-link .pixel-arrow { width: 15px; height: 15px; }
+.service-link .pixel-arrow { width: 16px; height: 16px; }
 @media (hover: hover) and (pointer: fine) { .service-link:hover { text-decoration-color: var(--ink); } .service-link:hover .pixel-arrow rect { animation: pixel-arrow-travel .52s cubic-bezier(.22, 1, .36, 1) calc((8 - var(--step)) * 22ms) both; } }
 @media (prefers-reduced-motion: reduce) { .service-link:hover .pixel-arrow rect { animation: none; } }
 .services-section [hidden] { display: none; }

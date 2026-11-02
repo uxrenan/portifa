@@ -6,11 +6,13 @@ import "./button.css";
  * (`--step`, 0 at the tail, 8 at the tip), so hover can send it out of the corner tip-first and bring it back.
  */
 const ARROW = [[0, 4], [1, 3], [2, 2], [3, 1], [1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [4, 2], [4, 3]] as const;
-const CELL = 4;
-const PIXEL = 3;
+const CELL = 3;
+const PIXEL = 2;
+/** The icon box: one pixel wider than the 15px grid, which sits one pixel down so the box stays square on whole pixels. */
+const BOX = 16;
 
 export function PixelArrow({ className = "pixel-arrow" }: { className?: string }) {
- return <svg className={className} viewBox={`0 0 ${CELL * 5} ${CELL * 5}`} aria-hidden="true" focusable="false">
+ return <svg className={className} viewBox={`0 -1 ${BOX} ${BOX}`} aria-hidden="true" focusable="false">
   {ARROW.map(([x, y]) => <rect key={`${x}-${y}`} x={x * CELL} y={y * CELL} width={PIXEL} height={PIXEL} style={{ "--step": x - y + 4 } as CSSProperties} />)}
  </svg>;
 }
