@@ -2,8 +2,18 @@
 .intro-backdrop { position: fixed; inset: 0; width: 100vw; height: 100dvh; z-index: 20; background: var(--surface-home); touch-action: none; }
 .site-header:not([data-phase="ready"]) { z-index: 21; pointer-events: none; }
 .intro-stage { z-index: 22; width: 100vw; height: 100dvh; background: var(--surface-home); }
-.site-header::before { content: ''; position: absolute; z-index: -1; inset: calc(-1 * var(--header-top)) calc(-1 * var(--gutter)) -20px; background: transparent; border-bottom: 1px solid transparent; -webkit-backdrop-filter: blur(0px); backdrop-filter: blur(0px); transition: background-color .3s, border-color .3s, backdrop-filter .3s; pointer-events: none; }
-.site-header[data-phase="ready"][data-scrolled="true"]::before { background: color-mix(in srgb, var(--surface-home) 84%, transparent); border-bottom-color: rgb(36 38 35 / .06); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+/* On scroll the header leaves the page edges and gathers into a floating capsule; on desktop it also narrows to the
+   centre and brings in the contact button. At the top of the page it is the open, full-width bar. */
+.site-header { --capsule-ease: cubic-bezier(.22, 1, .36, 1); transition: top .5s var(--capsule-ease), left .5s var(--capsule-ease), width .5s var(--capsule-ease); }
+.site-header::before { content: ''; position: absolute; z-index: -1; inset: -8px -12px; border-radius: 999px; background: transparent; box-shadow: 0 0 0 1px transparent; -webkit-backdrop-filter: blur(0px); backdrop-filter: blur(0px); transition: inset .5s var(--capsule-ease), background-color .3s, box-shadow .3s, backdrop-filter .3s; pointer-events: none; }
+.site-header[data-phase="ready"][data-scrolled="true"]::before { background: color-mix(in srgb, var(--surface-home) 86%, transparent); box-shadow: 0 0 0 1px rgb(36 38 35 / .08), 0 10px 30px rgb(36 38 35 / .08); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+@media (min-width: 1024px) {
+ .site-header { --capsule-width: min(var(--site-width), 960px); }
+ .site-header[data-phase="ready"][data-scrolled="true"] { top: 20px; left: calc((100vw - var(--capsule-width)) / 2); width: var(--capsule-width); }
+ .site-header[data-phase="ready"][data-scrolled="true"]::before { inset: -8px -8px -8px -28px; }
+ .site-header .header-contact { max-width: 240px; overflow: hidden; transition: max-width .5s var(--capsule-ease), padding .5s var(--capsule-ease), margin .5s var(--capsule-ease), border-width .5s var(--capsule-ease), opacity .3s .12s, visibility .5s, background-color .2s ease, border-color .2s ease, transform .12s; }
+ .site-header:not([data-scrolled="true"]) .header-contact { max-width: 0; padding-inline: 0; border-width: 0; margin-left: -24px; opacity: 0; visibility: hidden; transition-delay: 0s; }
+}
 .site-header .desktop-nav { margin-left: auto; gap: clamp(18px, 1.8vw, 32px); font-size: 13px; }
 .header-actions { display: flex; align-items: center; gap: 24px; }
 /* Language selector: a small translate pill that opens a menu of the two languages. */
@@ -43,7 +53,7 @@
  .mobile-menu-actions .header-contact { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
- .site-header::before { transition: none; }
+ .site-header, .site-header::before, .site-header .header-contact { transition: none; }
 }
 
 /* Keep the canvas continuous until the existing Hero entrance reveals it. */
