@@ -27,11 +27,13 @@ type ButtonProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "children"> & {
  size?: "md" | "sm";
  /** Opens in a new tab. */
  external?: boolean;
+ /** Shown but not yet usable: the link is dropped until its destination exists. */
+ disabled?: boolean;
 };
 
 /** The site's one call-to-action: a pill with its label and the pixel arrow. */
-export function Button({ variant = "primary", tone = "light", size = "md", external, className, children, ...props }: ButtonProps) {
- return <a {...props} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={className ? `button ${className}` : "button"} data-variant={variant} data-tone={tone} data-size={size}>
+export function Button({ variant = "primary", tone = "light", size = "md", external, disabled, className, children, href, ...props }: ButtonProps) {
+ return <a {...props} {...(disabled ? { "aria-disabled": true, role: "link" } : { href })} {...(external && !disabled ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={className ? `button ${className}` : "button"} data-variant={variant} data-tone={tone} data-size={size}>
   <span className="button-label">{children}</span>
   <PixelArrow />
  </a>;

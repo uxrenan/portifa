@@ -33,12 +33,15 @@
  100% { transform: none; opacity: 1; }
 }
 
+/* Disabled: the same pill, faded, with no hover or press. */
+.button[aria-disabled="true"] { opacity: .42; cursor: not-allowed; }
+
 @media (hover: hover) and (pointer: fine) {
- .button:hover { background: var(--button-hover-bg); border-color: var(--button-hover-border); }
- .button:hover .pixel-arrow rect { animation: pixel-arrow-travel .52s cubic-bezier(.22, 1, .36, 1) calc((8 - var(--step)) * 22ms) both; }
+ .button:not([aria-disabled="true"]):hover { background: var(--button-hover-bg); border-color: var(--button-hover-border); }
+ .button:not([aria-disabled="true"]):hover .pixel-arrow rect { animation: pixel-arrow-travel .52s cubic-bezier(.22, 1, .36, 1) calc((8 - var(--step)) * 22ms) both; }
 }
 .button:focus-visible { outline: 2px solid var(--button-focus); outline-offset: 4px; }
-.button:active { transform: scale(.98); background: var(--button-hover-bg); border-color: var(--button-hover-border); }
+.button:not([aria-disabled="true"]):active { transform: scale(.98); background: var(--button-hover-bg); border-color: var(--button-hover-border); }
 
 @media (prefers-reduced-motion: reduce) {
  .button { transition: none; }

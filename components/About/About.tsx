@@ -7,7 +7,7 @@ import { ABOUT_PHOTOS } from "@/config/about";
 import { Emphasis } from "@/components/Emphasis/Emphasis";
 import { useI18n } from "@/i18n/I18nProvider";
 import { PixelConstellation } from "@/components/PixelConstellation/PixelConstellation";
-import { Button } from "@/components/Button/Button";
+import { Button, PixelArrow } from "@/components/Button/Button";
 import { PixelReveal } from "@/components/PixelReveal/PixelReveal";
 import "./about.css";
 
@@ -74,7 +74,9 @@ export function About() {
     <motion.h2 id="about-heading" {...reveal(.06)}>{t.about.title}</motion.h2>
     <div className="about-text">{t.about.paragraphs.map((text, index) => <motion.p key={text} {...reveal(.12 + index * .06)}><Emphasis text={text} /></motion.p>)}</div>
     <motion.div className="about-actions" {...reveal(.32)}>
-     <Button href="#contato">{t.contact.talk}</Button>
+     {/* The About page is still to come; the button waits for it. */}
+     <Button href="/sobre" disabled title={t.about.soon} aria-label={`${t.about.more} — ${t.about.soon}`}>{t.about.more}</Button>
+     <a className="about-resume" href="/curriculo-renan-marques.pdf" target="_blank" rel="noopener noreferrer" aria-label={t.about.resumeLabel}>{t.about.resume}<PixelArrow /></a>
     </motion.div>
    </div>
   </div>
