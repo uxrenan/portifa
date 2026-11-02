@@ -1,22 +1,37 @@
-.section { --labz-background: #19162e; --labz-lime: #d0ef79; --labz-pink: #eaa4cd; --labz-cyan: #9ad9e7; --labz-paper: #f0efe9; --labz-muted: #aba7bf; position: relative; z-index: 2; isolation: isolate; width: var(--site-width); margin-inline: auto; padding-bottom: 96px; background: transparent; color: var(--labz-paper); scroll-margin-top: 92px; overflow: clip; }
-.universe { position: relative; min-height: clamp(460px, 55svh, 600px); width: 100%; border-radius: 16px; border: 1px solid rgb(154 217 231 / .12); background: var(--labz-background); overflow: clip; margin-inline: auto; display: flex; align-items: center; justify-content: center; padding: 48px 32px; }
+/* Renan Labz: the one corner of the portfolio in its own colour. A purple lab bench on graph paper, and an old theatre
+   sign whose bulbs flare at random (MarqueeSign). */
+.section { --labz-background: #211239; --labz-deep: #150a28; --labz-violet: #7c4dd8; --labz-lime: #d0ef79; --labz-pink: #f0a8d6; --labz-cyan: #9ad9e7; --labz-bulb: #ffd27a; --labz-paper: #f3effa; --labz-muted: #b3a8cc; position: relative; z-index: 2; isolation: isolate; width: var(--site-width); margin-inline: auto; padding-bottom: 96px; background: transparent; color: var(--labz-paper); scroll-margin-top: 92px; overflow: clip; }
+.universe { position: relative; min-height: clamp(500px, 60svh, 640px); width: 100%; border-radius: 16px; border: 1px solid rgb(160 120 240 / .22); background: radial-gradient(48% 58% at 50% 34%, rgb(124 77 216 / .38), transparent 72%), linear-gradient(rgb(255 255 255 / .035) 1px, transparent 1px) 0 0 / 32px 32px, linear-gradient(90deg, rgb(255 255 255 / .035) 1px, transparent 1px) 0 0 / 32px 32px, var(--labz-background); overflow: clip; margin-inline: auto; display: flex; align-items: center; justify-content: center; padding: 56px 32px; }
 .center { position: relative; z-index: 2; text-align: center; width: min(100%, 780px); }
-.sign { position: relative; display: inline-block; max-width: 100%; padding: 24px 32px; border: 1px solid rgb(208 239 121 / .4); border-radius: 8px; background: rgb(0 0 0 / .12); box-shadow: 0 0 32px rgb(208 239 121 / .04), inset 0 0 24px rgb(208 239 121 / .025); }
-.sign h2 { margin: 0; font-family: var(--type-accent); font-size: clamp(40px, 4.5vw, 76px); font-weight: 400; letter-spacing: -.045em; line-height: 1.1; color: var(--labz-lime); white-space: nowrap; }
-.headline { margin: 24px auto 0; font-family: var(--type-body); font-size: clamp(22px, 1.8vw, 28px); line-height: 1.3; letter-spacing: -.035em; }
+
+/* The sign: a dark plate in a metal frame, the name glowing on it, bulbs set into the border. */
+.sign { position: relative; display: inline-block; max-width: 100%; padding: 46px 58px; border: 2px solid #4b2f7e; border-radius: 14px; background: radial-gradient(80% 90% at 50% 50%, #241040, var(--labz-deep)); box-shadow: 0 0 0 6px #1a0d30, 0 0 0 7px rgb(160 120 240 / .25), 0 24px 60px rgb(8 3 20 / .55), inset 0 0 40px rgb(0 0 0 / .5); }
+.sign h2 { position: relative; margin: 0; font-family: var(--type-accent); font-size: clamp(40px, 4.5vw, 76px); font-weight: 400; letter-spacing: -.045em; line-height: 1.1; color: var(--labz-lime); white-space: nowrap; text-shadow: 0 0 6px rgb(208 239 121 / .55), 0 0 22px rgb(208 239 121 / .3); }
+.bulbs { position: absolute; inset: 0; pointer-events: none; }
+.bulbs i { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: radial-gradient(circle at 38% 34%, #fff6d8 0 18%, var(--labz-bulb) 45%, #a4661c 100%); opacity: .38; box-shadow: 0 0 0 1px rgb(0 0 0 / .35); transition: opacity .7s ease-out, box-shadow .7s ease-out; }
+.bulbs i[data-on] { opacity: 1; box-shadow: 0 0 0 1px rgb(0 0 0 / .2), 0 0 8px 2px rgb(255 210 122 / .85), 0 0 22px 4px rgb(255 190 90 / .35); transition-duration: .09s; }
+.sign[data-reduced] .bulbs i { opacity: .8; box-shadow: 0 0 0 1px rgb(0 0 0 / .2), 0 0 8px 1px rgb(255 210 122 / .45); }
+
+.headline { margin: 32px auto 0; font-family: var(--type-body); font-size: clamp(22px, 1.8vw, 28px); line-height: 1.3; letter-spacing: -.035em; }
 .description { max-width: 440px; margin: 16px auto 0; font-size: 16px; line-height: 1.6; color: var(--labz-muted); }
 .action { margin-top: 24px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.action a, .action button { display: inline-flex; align-items: center; gap: 28px; border: 1px solid rgb(240 239 233 / .22); border-radius: 4px; padding: 14px 20px; color: var(--labz-paper); font-family: var(--type-body); font-size: 14px; background: transparent; }
-.action button { cursor: default; color: #d1cdda; }
-.status { font-family: var(--type-accent); font-size: 12px; color: var(--labz-muted); }
+.action a, .action button { display: inline-flex; align-items: center; gap: 28px; border: 1px solid rgb(200 170 255 / .3); border-radius: 4px; padding: 14px 20px; color: var(--labz-paper); font-family: var(--type-body); font-size: 14px; background: rgb(21 10 40 / .6); }
+.action button { cursor: default; color: #d6cde6; }
+.status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--type-accent); font-size: 12px; color: var(--labz-muted); }
+.status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--labz-bulb); box-shadow: 0 0 6px var(--labz-bulb); animation: labz-standby 2.4s ease-in-out infinite; }
+@keyframes labz-standby { 50% { opacity: .3; box-shadow: none; } }
+
+/* Specimen labels pinned around the bench. */
 .objects { position: absolute; inset: 0; pointer-events: none; }
-.object { position: absolute; display: flex; flex-direction: column; gap: 14px; min-width: 112px; padding: 16px 20px; border: 1px solid currentColor; border-radius: 5px; background: var(--labz-background); font-family: var(--type-accent); font-size: 17px; line-height: 1.2; }
+.object { position: absolute; display: flex; flex-direction: column; gap: 14px; min-width: 112px; padding: 16px 20px; border: 1px solid currentColor; border-radius: 5px; background: rgb(21 10 40 / .85); font-family: var(--type-accent); font-size: 17px; line-height: 1.2; box-shadow: 0 10px 24px rgb(8 3 20 / .35); }
+.object::before { content: ""; position: absolute; top: -7px; left: 50%; width: 38px; height: 13px; margin-left: -19px; background: rgb(243 239 250 / .16); transform: rotate(-4deg); }
 .objectDetail { font-family: var(--type-body); font-size: 9px; letter-spacing: .1em; opacity: .65; }
 .game { top: 17%; left: 3%; color: var(--labz-pink); border-radius: 14px; }
 .experiment { top: 8%; right: 5%; color: var(--labz-cyan); }
 .ai { top: 43%; right: 0; color: var(--labz-lime); min-width: 90px; }
 .web { top: 48%; left: 0; color: var(--labz-cyan); }
-@media (max-width: 1199px) { .center { width: min(76%, 700px); } .sign { padding-inline: 24px; } .object { padding: 12px 14px; min-width: 90px; font-size: 14px; } .experiment { right: 3%; } }
+@media (max-width: 1199px) { .center { width: min(76%, 700px); } .sign { padding: 40px 44px; } .object { padding: 12px 14px; min-width: 90px; font-size: 14px; } .experiment { right: 3%; } }
 @media (min-width: 768px) and (max-width: 1023px) { .universe { padding-block: 64px; } .ai { display: none; } }
-@media (max-width: 767px) { .section { padding-bottom: 64px; } .universe { min-height: 0; padding: 112px 20px 48px; border-radius: 12px; } .center { width: 100%; } .sign { padding: 24px 16px; } .sign h2 { font-size: clamp(32px, 8.4vw, 60px); } .headline { font-size: 21px; margin-top: 24px; } .description { max-width: 340px; font-size: 16px; } .game { top: 24px; left: 2%; font-size: 11px; gap: 8px; padding: 9px 12px; } .experiment { top: 28px; right: 2%; font-size: 11px; gap: 8px; padding: 9px 12px; } .ai, .web { display: none; } }
+@media (max-width: 767px) { .section { padding-bottom: 64px; } .universe { min-height: 0; padding: 112px 20px 48px; border-radius: 12px; } .center { width: 100%; } .sign { padding: 36px 30px; } .sign h2 { font-size: clamp(28px, 9vw, 56px); } .headline { font-size: 21px; margin-top: 28px; } .description { max-width: 340px; font-size: 16px; } .game { top: 24px; left: 2%; font-size: 11px; gap: 8px; padding: 9px 12px; } .experiment { top: 28px; right: 2%; font-size: 11px; gap: 8px; padding: 9px 12px; } .ai, .web { display: none; } }
+@media (prefers-reduced-motion: reduce) { .status::before { animation: none; } }
 .action :global(.pixel-arrow) { width: 16px; height: 16px; }
