@@ -57,7 +57,7 @@ export const ptBR = {
     explore: "Explorar projetos selecionados",
     exploreRing: "VER PROJETOS · CONTINUE EXPLORANDO · ",
     /** Descrições dos adesivos do Hero, na ordem de HERO_ASSETS. */
-    stickers: { personal: "Foto de Renan em adesivo.", ui: "Recorte de interface.", print: "Recorte gráfico.", landscape: "Paisagem ilustrada.", flower: "Flor ilustrada." },
+    stickers: { personal: "Foto de Renan em adesivo.", ui: "Adesivo de uma janela de site nas cores da abertura, com o cursor de pixels.", place: "Selo de Rio Grande, RS, com o farol no fim dos molhes.", mini: "Adesivo do Mini Renan, o mascote em pixel do site.", growth: "Adesivo de barras em pixels subindo até uma seta." },
   },
   projects: {
     headingLabel: "Meus projetos",

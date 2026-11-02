@@ -56,7 +56,7 @@ export const en: Dictionary = {
     projects: "View projects",
     explore: "Explore selected projects",
     exploreRing: "VIEW PROJECTS · KEEP EXPLORING · ",
-    stickers: { personal: "Sticker photo of Renan.", ui: "Interface cutout.", print: "Graphic cutout.", landscape: "Illustrated landscape.", flower: "Illustrated flower." },
+    stickers: { personal: "Sticker photo of Renan.", ui: "Sticker of a website window in the intro colors, with the pixel cursor.", place: "Stamp from Rio Grande, Brazil, with the lighthouse at the end of the breakwater.", mini: "Sticker of Mini Renan, the site's pixel mascot.", growth: "Sticker of pixel bars climbing toward an arrow." },
   },
   projects: {
     headingLabel: "My projects",
