@@ -11,6 +11,9 @@
 /* A view leaving clears out quickly, so the incoming one appears over a clean frame. */
 .about-photo-layer:not([data-active="true"]) { transition-duration: .25s; }
 .about-photo-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* Entrance (components/PixelReveal): while the pixels clear, the portrait settles from a slight zoom. */
+.about-photo-layer:not(.about-mural) { transform: scale(1.05); transition: opacity .45s ease, transform 1.1s cubic-bezier(.22, 1, .36, 1); }
+.about-photo[data-shown="true"] .about-photo-layer:not(.about-mural) { transform: none; }
 
 /* Personal: a small mural filling the same frame — wide, two squares, wide. */
 .about-mural { --mural-gap: 7px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr); gap: var(--mural-gap); opacity: 1; }
@@ -62,4 +65,4 @@
  .about-text p { margin-bottom: 20px; font-size: 20px; line-height: 1.45; }
  .about-actions { margin-top: 36px; }
 }
-@media (prefers-reduced-motion: reduce) { .about-photo-layer, .about-mural-tile, .about-mural-tile img, .about-switch, .about-switch-thumb, .about-switch-option svg { transition: none !important; } .about-mural-tile, .about-mural-tile img { transform: none !important; } }
+@media (prefers-reduced-motion: reduce) { .about-photo-layer:not(.about-mural) { transform: none !important; } .about-photo-layer, .about-mural-tile, .about-mural-tile img, .about-switch, .about-switch-thumb, .about-switch-option svg { transition: none !important; } .about-mural-tile, .about-mural-tile img { transform: none !important; } }

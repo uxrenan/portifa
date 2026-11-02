@@ -1,7 +1,10 @@
 // Signature font; the main editorial typography remains independent.
 export const WORDMARK_FONT = "var(--font-bitcount)";
 export const CONTACT_HREF = "https://wa.me/5553991739258";
-export const ALWAYS_SHOW_INTRO = true;
+/** WhatsApp with a ready message (contact.quoteMessage in each language), for budget requests. */
+export const quoteHref = (message: string) => `${CONTACT_HREF}?text=${encodeURIComponent(message)}`;
+// The intro plays once per browser session; repeat visits open straight on the page (faster first paint).
+export const ALWAYS_SHOW_INTRO = false;
 export const INTRO_SESSION_KEY = "renan:intro-seen";
 export const MOTION_EASE = [0.76, 0, 0.24, 1] as const;
 export const INTRO_TIMING = { resolve: 580, travel: 0.78, menuStagger: 0.045 };
@@ -15,10 +18,11 @@ export const INTRO_FONTS = [
  { family: "var(--font-expressive)", weight: 600, style: "italic", color: "var(--accent-purple)", duration: 220, reveal: true },
  { family: WORDMARK_FONT, weight: 400, style: "normal", color: "var(--ink)", duration: INTRO_TIMING.resolve, reveal: false },
 ] as const;
+// Section anchors keep the same ids in every language; labels come from nav.items in the dictionaries.
 export const NAV_ITEMS = [
- { label: "Projetos", href: "#projetos" },
- { label: "Serviços", href: "#servicos" },
- { label: "Sobre", href: "#sobre" },
- { label: "Labz", href: "#labz" },
- { label: "Contato", href: "#contato" },
+ { key: "projects", href: "#projetos" },
+ { key: "services", href: "#servicos" },
+ { key: "about", href: "#sobre" },
+ { key: "labz", href: "#labz" },
+ { key: "contact", href: "#contato" },
 ] as const;

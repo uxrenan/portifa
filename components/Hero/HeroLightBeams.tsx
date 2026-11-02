@@ -1,6 +1,6 @@
 "use client";
 import { animate, motion, useMotionTemplate, useMotionValue, type MotionValue, type ValueAnimationTransition } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Narrow vertical beams of light in the intro's name palette (INTRO_FONTS accents), modelled on the BoardUI hero:
 // the page starts white and the light comes in pulses. In each pulse every beam drops in from the top on its own beat,
@@ -83,13 +83,33 @@ const DESKTOP_ONLY = new Set([3, 7]);
 export function HeroLightBeams({ play, reduced }: { play: boolean; reduced: boolean }) {
   // One shared clock keeps every beam in the same pulse, as in the reference; 0 means not started yet.
   const [repeats, setRepeats] = useState(0);
+  // The pulses only repeat while the Hero is on screen and the tab is visible; the pulse in flight always finishes.
+  const glow = useRef<HTMLDivElement>(null);
+  const [awake, setAwake] = useState(true);
+  const wasAwake = useRef(true);
   useEffect(() => {
-    if (!play || reduced) return;
+    const element = glow.current;
+    if (!element) return;
+    let inView = true;
+    const update = () => {
+      const next = inView && !document.hidden;
+      // Coming back into view starts a pulse at once instead of waiting a whole period on a dark page.
+      if (next && !wasAwake.current) setRepeats(count => count + 1);
+      wasAwake.current = next;
+      setAwake(next);
+    };
+    const observer = new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; update(); });
+    observer.observe(element);
+    document.addEventListener("visibilitychange", update);
+    return () => { observer.disconnect(); document.removeEventListener("visibilitychange", update); };
+  }, []);
+  useEffect(() => {
+    if (!play || reduced || !awake) return;
     const clock = setInterval(() => setRepeats(count => count + 1), PULSE.period * 1000);
     return () => clearInterval(clock);
-  }, [play, reduced]);
+  }, [play, reduced, awake]);
   const pulse = play ? repeats + 1 : 0;
-  return <div className="hero-glow" aria-hidden="true">
+  return <div ref={glow} className="hero-glow" aria-hidden="true">
     {BEAMS.map((beam, index) => <LightBeam key={index} beam={beam} pulse={pulse} reduced={reduced} mobile={!DESKTOP_ONLY.has(index)} />)}
   </div>;
 }

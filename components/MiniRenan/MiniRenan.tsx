@@ -6,7 +6,8 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MiniRenanAvatar } from "./MiniRenanAvatar";
 import { MiniDialog, NoteComposer } from "./NoteDialog";
-import { CONTEXT_LINES, LINES, NOTE_KEY, NOTE_MODELS, NOTE_SECTIONS, SESSION_KEY, type AvatarState, type Note } from "./data";
+import { CONTEXT_KEYS, NOTE_KEY, NOTE_MODELS, NOTE_SECTIONS, SESSION_KEY, type AvatarState, type Note } from "./data";
+import { format, useI18n } from "@/i18n/I18nProvider";
 import styles from "./mini.module.css";
 
 const DestructionMode = dynamic(() => import("../destruction-mode/DestructionMode"), { ssr: false });
@@ -16,6 +17,7 @@ type Mode = "idle" | "menu" | "more" | "hide" | "destroy";
 const freshSession = (): Session => ({ hidden: false, seen: [], count: 0, last: 0 });
 
 export function MiniRenan() {
+ const { t } = useI18n();
  const reduced = !!useReducedMotion();
  const [ready, setReady] = useState(false);
  const { unlocked, firstUnlock } = useMiniRenanUnlock(ready);
@@ -63,20 +65,20 @@ export function MiniRenan() {
    s.seen.push(key); s.count++; s.last = Date.now(); storeSession(); speak(text); return true;
   };
   let invitation: ReturnType<typeof setTimeout>;
-  const greeting = setTimeout(() => { if (spontaneous("intro", LINES.greeting)) invitation = setTimeout(() => { if (current.current.mode === "idle" && !current.current.composer && !current.current.hidden) speak(LINES.invitation, "talking", 8000); }, 1400); }, 8000);
+  const greeting = setTimeout(() => { if (spontaneous("intro", t.mini.lines.greeting)) invitation = setTimeout(() => { if (current.current.mode === "idle" && !current.current.composer && !current.current.hidden) speak(t.mini.lines.invitation, "talking", 8000); }, 1400); }, 8000);
   const observer = new IntersectionObserver(entries => {
    for (const entry of entries) if (entry.isIntersecting) {
     const target = entry.target;
     const labz = target.id === "labz";
     setVariant(labz ? "labz" : "default");
     setDark(["projetos", "labz", "contato"].includes(target.id) || target.tagName === "FOOTER");
-    const key = Object.keys(CONTEXT_LINES).find(selector => target.matches(selector));
-    if (key && session.current.seen.includes("intro") && Date.now() - session.current.last >= 60000) spontaneous(key, CONTEXT_LINES[key as keyof typeof CONTEXT_LINES]);
+    const key = (Object.keys(CONTEXT_KEYS) as (keyof typeof CONTEXT_KEYS)[]).find(selector => target.matches(selector));
+    if (key && session.current.seen.includes("intro") && Date.now() - session.current.last >= 60000) spontaneous(key, t.mini.context[CONTEXT_KEYS[key]]);
    }
   }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
   document.querySelectorAll(".hero-poster,#projetos,#labz,#servicos,#sobre,#contato,.site-footer,.editorial-pause").forEach(e => observer.observe(e));
   return () => { clearTimeout(greeting); clearTimeout(invitation); observer.disconnect(); };
- }, [ready, unlocked, hidden, destructionMode, firstUnlock, speak, storeSession]);
+ }, [ready, unlocked, hidden, destructionMode, firstUnlock, speak, storeSession, t]);
  useEffect(() => {
   if (!ready) return;
   let observer: IntersectionObserver;
@@ -89,8 +91,11 @@ export function MiniRenan() {
    }, { rootMargin: `-${Math.max(0, innerHeight - 120)}px 0px 0px -${Math.max(0, innerWidth - 120)}px`, threshold: 0 });
    document.querySelectorAll(".header-contact,.contact-action,.project-visual").forEach(e => observer.observe(e));
   };
-  setup(); window.addEventListener("resize", setup);
-  return () => { observer.disconnect(); window.removeEventListener("resize", setup); };
+  // Resizing fires many events; rebuild the observer once per frame at most.
+  let frame = 0;
+  const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(setup); };
+  setup(); window.addEventListener("resize", schedule);
+  return () => { cancelAnimationFrame(frame); observer.disconnect(); window.removeEventListener("resize", schedule); };
  }, [ready]);
  useEffect(() => {
   if (mode !== "hide") return;
@@ -108,9 +113,9 @@ export function MiniRenan() {
  }, [mode, close]);
  const save = (note: Note) => {
   const next = [...notes, note].slice(-30);
-  try { localStorage.setItem(NOTE_KEY, JSON.stringify(next)); } catch { return "Não foi possível salvar neste navegador. Tente liberar o armazenamento local."; }
+  try { localStorage.setItem(NOTE_KEY, JSON.stringify(next)); } catch { return t.mini.saveError; }
   setNotes(next); setComposer(false); setMode("idle");
-  speak(LINES.saved, "happy", 7500);
+  speak(t.mini.lines.saved, "happy", 7500);
   const targetIndex = NOTE_SECTIONS.findIndex(s => s.label === note.section);
   // Use the existing delegated anchor navigation (Lenis); no second scroll engine.
   requestAnimationFrame(() => { const anchor = document.createElement("a"); anchor.href = `#mini-note-anchor-${targetIndex}`; document.body.append(anchor); anchor.click(); anchor.remove(); });
@@ -119,29 +124,29 @@ export function MiniRenan() {
  useEffect(() => {
   if (!firstUnlock) return;
   session.current.seen.push("intro"); session.current.last = Date.now(); storeSession();
-  const timers = [setTimeout(() => speak("Oi.", "talking", 1000), 750), setTimeout(() => speak("Você chegou longe o suficiente.", "talking", 2200), 1800), setTimeout(() => speak("Mini Renan desbloqueado", "happy", 2000), 4200)];
+  const timers = [setTimeout(() => speak(t.mini.lines.unlock[0], "talking", 1000), 750), setTimeout(() => speak(t.mini.lines.unlock[1], "talking", 2200), 1800), setTimeout(() => speak(t.mini.lines.unlock[2], "happy", 2000), 4200)];
   return () => timers.forEach(clearTimeout);
- }, [firstUnlock, speak, storeSession]);
+ }, [firstUnlock, speak, storeSession, t]);
  useEffect(() => {
   if (mode !== "destroy") return;
-  const timer = setTimeout(() => speak("Eu demorei pra fazer isso aqui."), 650);
+  const timer = setTimeout(() => speak(t.mini.lines.destroyWarning), 650);
   return () => clearTimeout(timer);
- }, [mode, speak]);
+ }, [mode, speak, t]);
  if (!ready || !unlocked) return null;
- if (destructionMode) return <DestructionMode onExit={() => { setDestructionMode(false); speak("Finalmente.", "happy", 2500); }} />;
+ if (destructionMode) return <DestructionMode onExit={() => { setDestructionMode(false); speak(t.mini.lines.rebuilt, "happy", 2500); }} />;
  return <>
   <div ref={widget} className={styles.widget} data-tone={dark ? "dark" : "light"} data-raised={raised}>
-   <AnimatePresence mode="wait">{hidden ? <motion.button key="restore" className={styles.restore} initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => { session.current.hidden = false; storeSession(); setHidden(false); speak(LINES.returned, "happy"); }}>chamar Mini Renan</motion.button> : <motion.div key="avatar" initial={{ opacity: 0 }} animate={firstUnlock && !reduced ? { opacity: [0, 1, 0, 1], y: [35, 0, 35, 0] } : { opacity: 1 }} exit={reduced ? { opacity: 0 } : { opacity: 0, y: 24, rotate: 8 }} transition={{ duration: firstUnlock && !reduced ? .75 : .25 }}>
-    {(speech && mode === "idle") && <div className={styles.bubble} role="status">{speech}<button type="button" onClick={() => setSpeech("")} aria-label="Fechar fala">×</button></div>}
+   <AnimatePresence mode="wait">{hidden ? <motion.button key="restore" className={styles.restore} initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => { session.current.hidden = false; storeSession(); setHidden(false); speak(t.mini.lines.returned, "happy"); }}>{t.mini.restore}</motion.button> : <motion.div key="avatar" initial={{ opacity: 0 }} animate={firstUnlock && !reduced ? { opacity: [0, 1, 0, 1], y: [35, 0, 35, 0] } : { opacity: 1 }} exit={reduced ? { opacity: 0 } : { opacity: 0, y: 24, rotate: 8 }} transition={{ duration: firstUnlock && !reduced ? .75 : .25 }}>
+    {(speech && mode === "idle") && <div className={styles.bubble} role="status">{speech}<button type="button" onClick={() => setSpeech("")} aria-label={t.mini.closeSpeech}>×</button></div>}
     {mode !== "idle" && <div ref={panel} className={styles.panel} role="dialog" aria-label="Mini Renan" data-lenis-prevent="true">
-     <div className={styles.panelHeader}><h2>{mode === "menu" ? "O que foi?" : "Ei, pessoa."}</h2><button type="button" onClick={close} aria-label="Fechar menu">×</button></div>
-     {mode === "menu" ? <div className={styles.options}><button onClick={() => { setMode("idle"); setSpeech(""); setComposer(true); }}>✎ Deixar um recado</button><button onClick={() => { setMode("more"); setExpression("judging"); setSpeech(""); }}>? Saber mais</button><button onClick={() => { setMode("destroy"); setExpression("panic"); speak("Tem certeza?"); }}>⌁ Destruir esse site</button><button onClick={() => { setHideStep(0); setMode("hide"); setExpression("panic"); setSpeech(""); }}>× Me esconder</button></div> : mode === "more" ? <><p>{LINES.more}</p><div className={styles.options}><button onClick={close}>Tá bom, eu leio</button><a href="#sobre" onClick={close}>Me leva pro Sobre ↗</a></div></> : mode === "destroy" ? <><p aria-live="polite">{speech}</p><div className={styles.options}><button onClick={close}>Cancelar</button><button onClick={() => { setMode("idle"); setSpeech(""); clearTimeout(speechTimer.current); setDestructionMode(true); }}>Destruir mesmo assim</button></div></> : <><p aria-live="polite">{LINES.hide.slice(0, hideStep + 1).map(text => <span key={text} className={styles.line}>{text}</span>)}</p>{hideStep === 2 && <div className={styles.options}><button onClick={() => { close(); speak(LINES.cancel, "happy", 2500); }}>Cancelar</button><button onClick={() => { session.current.hidden = true; storeSession(); setHidden(true); setMode("idle"); setExpression("hidden"); setSpeech(""); }}>Sim, pode sumir</button></div>}</>}
+     <div className={styles.panelHeader}><h2>{mode === "menu" ? t.mini.menuTitle : t.mini.otherTitle}</h2><button type="button" onClick={close} aria-label={t.mini.closeMenu}>×</button></div>
+     {mode === "menu" ? <div className={styles.options}><button onClick={() => { setMode("idle"); setSpeech(""); setComposer(true); }}>{t.mini.options.note}</button><button onClick={() => { setMode("more"); setExpression("judging"); setSpeech(""); }}>{t.mini.options.more}</button><button onClick={() => { setMode("destroy"); setExpression("panic"); speak(t.mini.lines.sure); }}>{t.mini.options.destroy}</button><button onClick={() => { setHideStep(0); setMode("hide"); setExpression("panic"); setSpeech(""); }}>{t.mini.options.hide}</button></div> : mode === "more" ? <><p>{t.mini.lines.more}</p><div className={styles.options}><button onClick={close}>{t.mini.moreOk}</button><a href="#sobre" onClick={close}>{t.mini.moreAbout}</a></div></> : mode === "destroy" ? <><p aria-live="polite">{speech}</p><div className={styles.options}><button onClick={close}>{t.mini.cancel}</button><button onClick={() => { setMode("idle"); setSpeech(""); clearTimeout(speechTimer.current); setDestructionMode(true); }}>{t.mini.destroyAnyway}</button></div></> : <><p aria-live="polite">{t.mini.lines.hide.slice(0, hideStep + 1).map(text => <span key={text} className={styles.line}>{text}</span>)}</p>{hideStep === 2 && <div className={styles.options}><button onClick={() => { close(); speak(t.mini.lines.cancel, "happy", 2500); }}>{t.mini.cancel}</button><button onClick={() => { session.current.hidden = true; storeSession(); setHidden(true); setMode("idle"); setExpression("hidden"); setSpeech(""); }}>{t.mini.hideConfirm}</button></div>}</>}
     </div>}
-    <button ref={avatar} className={styles.avatar} aria-label="Mini Renan — abrir menu" aria-expanded={mode !== "idle"} onClick={() => { clearTimeout(speechTimer.current); setSpeech(""); setExpression("neutral"); setMode(mode === "idle" ? "menu" : "idle"); }}><MiniRenanAvatar state={expression} variant={variant} /></button>
+    <button ref={avatar} className={styles.avatar} aria-label={t.mini.open} data-mini-avatar="" aria-expanded={mode !== "idle"} onClick={() => { clearTimeout(speechTimer.current); setSpeech(""); setExpression("neutral"); setMode(mode === "idle" ? "menu" : "idle"); }}><MiniRenanAvatar state={expression} variant={variant} /></button>
    </motion.div>}</AnimatePresence>
   </div>
   {composer && <NoteComposer onSave={save} onClose={() => { setComposer(false); avatar.current?.focus(); }} />}
-  {NOTE_SECTIONS.map((s, index) => { const target = document.querySelector(s.selector); const group = notes.filter(n => n.section === s.label); return target && group.length ? createPortal(<><span id={`mini-note-anchor-${index}`} className={styles.noteAnchor} aria-hidden="true" /><button key={group[group.length - 1].id} className={styles.noteSeal} data-section={target.id} data-model={group[group.length - 1].model} aria-label={`Ler ${group.length} recados em ${s.label}`} onClick={() => setReading(s.label)}>✎ {group.length} {group.length === 1 ? "recado" : "recados"}</button></>, target, s.label) : null; })}
-  {reading && <MiniDialog title={`Recados · ${reading}`} onClose={() => setReading(null)}><p className={styles.localHint}>Salvos apenas neste navegador.</p><div className={styles.noteList}>{notes.filter(n => n.section === reading).map(n => <article key={n.id} className={styles.note} data-model={n.model}><span>{n.model}</span><p>{n.comment}</p><strong>{n.name}</strong><button type="button" onClick={() => { const next = notes.filter(item => item.id !== n.id); try { localStorage.setItem(NOTE_KEY, JSON.stringify(next)); setNotes(next); } catch { /* Keep visible if deletion could not be saved. */ } }}>Remover recado</button></article>)}</div></MiniDialog>}
+  {NOTE_SECTIONS.map((s, index) => { const target = document.querySelector(s.selector); const group = notes.filter(n => n.section === s.label); return target && group.length ? createPortal(<><span id={`mini-note-anchor-${index}`} className={styles.noteAnchor} aria-hidden="true" /><button key={group[group.length - 1].id} className={styles.noteSeal} data-section={target.id} data-model={group[group.length - 1].model} aria-label={format(t.mini.readNotes, { count: group.length, section: t.mini.sections[s.label] })} onClick={() => setReading(s.label)}>✎ {group.length} {group.length === 1 ? t.mini.note : t.mini.notes}</button></>, target, s.label) : null; })}
+  {reading && <MiniDialog title={`${t.mini.notesTitle} · ${t.mini.sections[reading as keyof typeof t.mini.sections] ?? reading}`} onClose={() => setReading(null)}><p className={styles.localHint}>{t.mini.localHint}</p><div className={styles.noteList}>{notes.filter(n => n.section === reading).map(n => <article key={n.id} className={styles.note} data-model={n.model}><span>{t.mini.models[n.model]}</span><p>{n.comment}</p><strong>{n.name}</strong><button type="button" onClick={() => { const next = notes.filter(item => item.id !== n.id); try { localStorage.setItem(NOTE_KEY, JSON.stringify(next)); setNotes(next); } catch { /* Keep visible if deletion could not be saved. */ } }}>{t.mini.removeNote}</button></article>)}</div></MiniDialog>}
  </>;
 }

@@ -3,16 +3,17 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { Sticker } from "@/components/Sticker/Sticker";
+import { useI18n } from "@/i18n/I18nProvider";
 import "./footer.css";
 
 const stickers = [
- { name: "Interface", rotation: -12, kind: "ui" },
- { name: "UX", rotation: 9, kind: "ux" },
- { name: "Cachorro", rotation: -7, kind: "dog" },
- { name: "Futebol tricolor", rotation: 12, kind: "football" },
- { name: "Renan Labz", rotation: -8, kind: "labz" },
- { name: "Cursor pixelado", rotation: 16, kind: "pixel" },
-];
+ { rotation: -12, kind: "ui" },
+ { rotation: 9, kind: "ux" },
+ { rotation: -7, kind: "dog" },
+ { rotation: 12, kind: "football" },
+ { rotation: -8, kind: "labz" },
+ { rotation: 16, kind: "pixel" },
+] as const;
 
 function StickerArt({ kind }: { kind: string }) {
  return <svg viewBox="0 0 220 220" fill="none" aria-hidden="true">
@@ -24,7 +25,9 @@ function StickerArt({ kind }: { kind: string }) {
  </svg>;
 }
 
+/** Section links lead back to the home of the current language from other pages. */
 export function Footer() {
+ const { t, sections: base, path } = useI18n();
  const reduced = !!useReducedMotion();
  const footer = useRef<HTMLElement>(null);
  const area = useRef<HTMLDivElement>(null);
@@ -37,12 +40,12 @@ export function Footer() {
   <div className="footer-background" aria-hidden="true" />
   <motion.div className="site-container footer-content" initial={reduced ? false : { opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .15 }} transition={{ duration: reduced ? 0 : .5 }}>
    <div className="footer-top">
-    <div className="footer-identity"><a href="#" aria-label="Renan Marques — voltar ao início">Renan Marques</a><p>Product / UX/UI Designer<br />Rio Grande, Brasil</p></div>
-    <div className="footer-socials"><a href="https://www.linkedin.com/in/renansm/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/uxrenan" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:renansomarques@gmail.com">E-mail ↗</a></div>
-    <nav aria-label="Navegação do rodapé" className="footer-links"><a href="#projetos">Projetos</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#labz">Labz</a></nav>
+    <div className="footer-identity"><a href={base || "#"} aria-label={t.footer.home}>Renan Marques</a><p>{t.footer.role}<br />{t.footer.place}</p></div>
+    <div className="footer-socials"><a href="https://www.linkedin.com/in/renansm/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/uxrenan" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:renansomarques@gmail.com">{t.footer.email} ↗</a></div>
+    <nav aria-label={t.footer.nav} className="footer-links"><a href={`${base}#projetos`}>{t.nav.items.projects}</a><a href={`${base}#servicos`}>{t.nav.items.services}</a><a href={path("sites")}>{t.footer.sites}</a><a href={`${base}#sobre`}>{t.nav.items.about}</a><a href={`${base}#labz`}>{t.nav.items.labz}</a></nav>
    </div>
-   <div className="footer-meta"><span>© 2026 Renan Marques</span><span>Feito com curiosidade.</span></div>
-   <div ref={area} className="footer-collage">{stickers.map((item, index) => <Sticker key={item.kind} className={`footer-sticker footer-sticker--${item.kind}`} label={`${item.name}.`} rotation={item.rotation} shadow={1.8} delay={.1 + index * .08} constraints={area}><StickerArt kind={item.kind} /></Sticker>)}</div>
+   <div className="footer-meta"><span>© 2026 Renan Marques</span><span>{t.footer.madeWith}</span></div>
+   <div ref={area} className="footer-collage">{stickers.map((item, index) => <Sticker key={item.kind} className={`footer-sticker footer-sticker--${item.kind}`} label={`${t.footer.stickers[item.kind]}.`} rotation={item.rotation} shadow={1.8} delay={.1 + index * .08} constraints={area}><StickerArt kind={item.kind} /></Sticker>)}</div>
   </motion.div>
  </footer>;
 }

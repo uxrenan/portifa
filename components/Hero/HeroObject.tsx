@@ -3,12 +3,13 @@ import Image from "next/image";
 import { useEffect, useState, type RefObject } from "react";
 import { HERO_ASSETS, HERO_MOTION } from "@/config/hero";
 import { Sticker } from "@/components/Sticker/Sticker";
+import { useI18n } from "@/i18n/I18nProvider";
 
 type Asset = typeof HERO_ASSETS[number];
 type Geometry = { left: number; top: number; width: number; height: number; bounds: { left: number; right: number; top: number; bottom: number } };
 
 function Artwork({ kind }: { kind: Asset["id"] }) {
-  if (kind === "personal") return <Image src="/hero/renan-sticker.webp" alt="" width={640} height={907} priority draggable={false} />;
+  if (kind === "personal") return <Image src="/hero/renan-sticker.webp" alt="" width={640} height={907} sizes="(max-width: 767px) 72px, 128px" priority draggable={false} />;
   if (kind === "ui") return <svg viewBox="0 0 120 90" aria-hidden="true"><rect x="2" y="2" width="116" height="86" rx="18" fill="#adc1d0" /><rect x="14" y="16" width="92" height="18" rx="9" fill="#f2f3f0" /><circle cx="25" cy="25" r="5" fill="#547184" /><path d="M18 46h84M18 57h62" stroke="#547184" strokeWidth="5" strokeLinecap="round" /><rect x="17" y="69" width="41" height="8" rx="4" fill="#354c5c" /><path d="m83 51 2 27 7-8 8 8 5-5-8-8 10-3z" fill="#f2f3f0" stroke="#354c5c" strokeWidth="1.5" /></svg>;
   if (kind === "print") return <svg viewBox="0 0 90 100" aria-hidden="true"><rect x="2" y="2" width="86" height="96" rx="5" fill="#e6b458" /><path d="M16 19h58M16 27h40" stroke="#453d2d" strokeWidth="2" /><text x="9" y="76" fontFamily="var(--font-wordmark)" fontSize="47" letterSpacing="-4" fill="#453d2d">UX</text><path d="M16 87h58" stroke="#453d2d" strokeWidth="2" /></svg>;
   if (kind === "landscape") return <svg viewBox="0 0 90 100" aria-hidden="true"><rect x="2" y="2" width="86" height="96" rx="5" fill="#f7f4e9" /><path d="M7 7h76v78H7z" fill="#aabcb0" /><circle cx="66" cy="26" r="10" fill="#f0d18b" /><path d="M7 75 29 36l29 39V85H7" fill="#4b6b57" /><path d="m35 85 28-36 20 29v7" fill="#80947c" /><path d="M12 92h26" stroke="#5d6b60" strokeWidth="1.5" /></svg>;
@@ -19,6 +20,7 @@ export function HeroObject({ asset, index, section, slots, ready }: {
   asset: Asset; index: number; section: RefObject<HTMLElement | null>;
   slots: RefObject<(HTMLSpanElement | null)[]>; ready: boolean;
 }) {
+  const { t } = useI18n();
   const [geometry, setGeometry] = useState<Geometry>();
   useEffect(() => {
     const root = section.current;
@@ -43,7 +45,7 @@ export function HeroObject({ asset, index, section, slots, ready }: {
     return () => { active = false; observer.disconnect(); };
   }, [asset, section, slots]);
   if (!geometry) return null;
-  return <Sticker className={`hero-object hero-object--${asset.id}`} label={asset.label} rotation={asset.rotation} shadow={asset.id === "personal" ? 1.2 : .8}
+  return <Sticker className={`hero-object hero-object--${asset.id}`} label={t.hero.stickers[asset.id]} rotation={asset.rotation} shadow={asset.id === "personal" ? 1.2 : .8}
     style={{ left: geometry.left, top: geometry.top, width: geometry.width, height: geometry.height }} constraints={geometry.bounds}
     play={ready} delay={.65 + asset.slot * HERO_MOTION.lineStagger + (asset.slot === 2 ? (index - 2) * .07 : 0)}><Artwork kind={asset.id} /></Sticker>;
 }

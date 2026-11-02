@@ -6,9 +6,14 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { services } from "@/config/services";
 import "./services.css";
 import { PixelConstellation } from "@/components/PixelConstellation/PixelConstellation";
+import { PixelArrow } from "@/components/Button/Button";
+import { Lines } from "@/components/Emphasis/Emphasis";
+import { useI18n } from "@/i18n/I18nProvider";
 
 
-function Service({ service, compact, onHover, onFocus }: { service: typeof services[number]; compact: boolean; onHover: (active: boolean) => void; onFocus: (active: boolean) => void }) {
+function Service({ service, index, compact, onHover, onFocus }: { service: typeof services[number]; index: number; compact: boolean; onHover: (active: boolean) => void; onFocus: (active: boolean) => void }) {
+  const { t, path } = useI18n();
+  const copy = t.services.items[index];
   const reduced = !!useReducedMotion();
   const [open, setOpen] = useState(false);
 
@@ -21,23 +26,25 @@ function Service({ service, compact, onHover, onFocus }: { service: typeof servi
     onFocus={() => onFocus(true)} onBlur={() => onFocus(false)}>
     <span className="service-number">{service.number} / 04</span>
     <div className="service-main">
-      <span className="service-eyebrow">{service.eyebrow}</span>
-      <h3 id={`service-title-${service.number}`}>{compact ? <button type="button" aria-expanded={open} aria-controls={`service-body-${service.number}`} onClick={() => setOpen(!open)}>{service.title}<span aria-hidden="true">{open ? "−" : "+"}</span></button> : service.title}</h3>
+      <span className="service-eyebrow">{copy.eyebrow}</span>
+      <h3 id={`service-title-${service.number}`}>{compact ? <button type="button" aria-expanded={open} aria-controls={`service-body-${service.number}`} onClick={() => setOpen(!open)}>{copy.title}<span aria-hidden="true">{open ? "−" : "+"}</span></button> : copy.title}</h3>
       <div id={`service-body-${service.number}`} className="service-description" hidden={compact && !open}>
-        <p>{service.description}</p>
+        <p>{copy.description}</p>
       </div>
     </div>
     {compact && <div className="service-preview" hidden={!open}>
-      <Image src={service.preview} alt={service.alt} width={640} height={480} sizes="85vw" />
+      <Image src={service.preview} alt={copy.alt} width={640} height={480} sizes="85vw" />
     </div>}
     <div className="service-support" hidden={compact && !open}>
-      <span>Posso ajudar com</span>
-      <ul>{service.topics.map(topic => <li key={topic}>{topic}</li>)}</ul>
+      <span>{t.services.helpWith}</span>
+      <ul>{copy.topics.map(topic => <li key={topic}>{topic}</li>)}</ul>
+      {"link" in service && <a className="service-link" href={path(service.link)}>{copy.linkLabel}<PixelArrow /></a>}
     </div>
   </motion.article>;
 }
 
 export function Services() {
+  const { t } = useI18n();
   const reduced = !!useReducedMotion();
   const list = useRef<HTMLDivElement>(null);
   const [compact, setCompact] = useState(false);
@@ -84,20 +91,20 @@ export function Services() {
     <div className="services-header-surface" aria-hidden="true" />
     <div className="services-content">
     <header className="services-intro">
-      <div className="services-label"><span className="pixel-marker"><PixelConstellation variant="north" />O QUE EU FAÇO</span><span>ESTRATÉGIA → INTERFACE</span></div>
-      <h2 id="services-title">Da ideia à interface.<br /><span>Design para produtos<br />que precisam funcionar.</span></h2>
+      <div className="services-label"><span className="pixel-marker"><PixelConstellation variant="north" />{t.services.label}</span><span>{t.services.flow}</span></div>
+      <h2 id="services-title">{t.services.headingFirst}<br /><span><Lines text={t.services.headingSecond} /></span></h2>
       {!compact && <div className="services-sticky-preview" data-scroll-active={services[scrollActive].number} data-preview-active={preview.number}>
         <div className="services-preview-frame">
           <AnimatePresence initial={false}>
             <motion.div key={preview.number} className="services-preview-image" initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 8, scale: reduced ? 1 : .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : .3 }}>
-              <Image src={preview.preview} alt={preview.alt} width={640} height={480} sizes="(min-width: 1024px) 420px, 85vw" />
+              <Image src={preview.preview} alt={t.services.items[previewIndex].alt} width={640} height={480} sizes="(min-width: 1024px) 420px, 85vw" />
             </motion.div>
           </AnimatePresence>
         </div>
-        <div className="services-preview-caption"><span>{preview.number} / 04</span><span>{preview.title}</span></div>
+        <div className="services-preview-caption"><span>{preview.number} / 04</span><span>{t.services.items[previewIndex].title}</span></div>
       </div>}
     </header>
-    <div ref={list} className="services-list">{services.map((service, index) => <Service key={service.number} service={service} compact={compact} onHover={active => setHovered(active ? index : null)} onFocus={active => setFocused(active ? index : null)} />)}</div>
+    <div ref={list} className="services-list">{services.map((service, index) => <Service key={service.number} service={service} index={index} compact={compact} onHover={active => setHovered(active ? index : null)} onFocus={active => setFocused(active ? index : null)} />)}</div>
     </div>
   </section>;
 }

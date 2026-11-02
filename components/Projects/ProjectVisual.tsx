@@ -4,18 +4,21 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { motion, useSpring } from "framer-motion";
 import { PixelArrow } from "@/components/Button/Button";
-
-/** Labels that lead somewhere get the site's pixel arrow; "Em breve" stays plain. */
-const SOON = "Em breve";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const pointerQuery = "(min-width: 768px) and (hover: hover) and (pointer: fine)";
 const spring = { stiffness: 550, damping: 42, mass: .45 };
 
 export function ProjectVisual({ children, title }: { children: ReactNode; title: string }) {
-  return <a className="project-visual" aria-disabled="true" tabIndex={-1} aria-label={`Ver projeto: ${title} — em preparação`}>{children}</a>;
+  const { t } = useI18n();
+  return <a className="project-visual" aria-disabled="true" tabIndex={-1} aria-label={`${t.projects.viewProject}: ${title} — ${t.projects.pending}`}>{children}</a>;
 }
 
+/** Labels that lead somewhere get the site's pixel arrow; the "coming soon" label stays plain. */
 export function ProjectCursor({ reduced }: { reduced: boolean }) {
+  const { t } = useI18n();
+  const SOON = t.projects.soon;
+  const fallback = t.projects.cursor;
   const [label, setLabel] = useState<string | null>(null);
   const pill = useRef<HTMLSpanElement>(null);
   const x = useSpring(0, spring);
@@ -41,7 +44,7 @@ export function ProjectCursor({ reduced }: { reduced: boolean }) {
       const card = document.elementFromPoint(point.x, point.y)?.closest<HTMLElement>("[data-project-card]") ?? null;
       if (!card) { hide(); moved = false; return; }
       const changed = active !== card;
-      const nextLabel = card.dataset.projectCard || "Ver projeto";
+      const nextLabel = card.dataset.projectCard || fallback;
       if (changed) {
         active?.removeAttribute("data-cursor");
         active = card;
@@ -88,7 +91,7 @@ export function ProjectCursor({ reduced }: { reduced: boolean }) {
     sync();
     media.addEventListener("change", sync);
     return () => { media.removeEventListener("change", sync); detach(); };
-  }, [reduced, x, y]);
+  }, [reduced, x, y, SOON, fallback]);
 
   return label && createPortal(<motion.span className="project-pointer" aria-hidden="true" ref={pill} style={{ x, y }} initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: reduced ? 0 : .16, ease: [.22, 1, .36, 1] }}>{label}{label !== SOON && <PixelArrow />}</motion.span>, document.body);
 }

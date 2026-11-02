@@ -4,12 +4,14 @@ import { useReducedMotion } from "framer-motion";
 import { MiniRenanAvatar } from "../MiniRenan/MiniRenanAvatar";
 import { MiniDialog } from "../MiniRenan/NoteDialog";
 import { prepareTargets } from "./targets";
+import { useI18n } from "@/i18n/I18nProvider";
 import styles from "./destruction.module.css";
 
 export default function DestructionMode({ onExit }: { onExit: () => void }) {
+ const { t } = useI18n();
  const reduced = !!useReducedMotion();
  const [chaos, setChaos] = useState(0);
- const [message, setMessage] = useState("Tá. Você que pediu.");
+ const [message, setMessage] = useState(t.destruction.start);
  const [confirmExit, setConfirmExit] = useState(false);
  const player = useRef<HTMLDivElement>(null);
  const controls = useRef({ direction: 0, jump: false, attack: false, paused: false });
@@ -45,7 +47,7 @@ export default function DestructionMode({ onExit }: { onExit: () => void }) {
    element.style.setProperty("visibility", "hidden", "important"); element.setAttribute("data-destroyed", "true"); destroyed.add(element);
    clone.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: reduced ? "translateY(4px)" : `translate(${facing * 80}px, 90px) rotate(${facing * 14}deg)` }], { duration: reduced ? 180 : 500, fill: "forwards", easing: "ease-in" }).onfinish = () => { clone.remove(); clones.delete(clone); };
    const count = destroyed.size; setChaos(count);
-   if (count === 1) announce("..."); else if (count === 4) announce("Você tá gostando disso, né?"); else if (count === 9) announce("Era pra ser só um easter egg."); else if (count === 15) announce("Meu Lighthouse…");
+   const milestone = t.destruction.milestones[count as keyof typeof t.destruction.milestones]; if (milestone) announce(milestone);
   };
   const tick = (now: number) => {
    const dt = Math.min((now - (last || now)) / 1000, .04); last = now;
@@ -76,15 +78,15 @@ export default function DestructionMode({ onExit }: { onExit: () => void }) {
   document.addEventListener("keydown", keydown); document.addEventListener("keyup", keyup); window.addEventListener("blur", blur);
   frame = requestAnimationFrame(tick);
   return () => { cancelAnimationFrame(frame); document.removeEventListener("keydown", keydown); document.removeEventListener("keyup", keyup); window.removeEventListener("blur", blur); timers.forEach(clearTimeout); clones.forEach(clone => clone.remove()); restore(); if (previousMode === null) document.documentElement.removeAttribute("data-destruction-mode"); else document.documentElement.setAttribute("data-destruction-mode", previousMode); };
- }, [reduced]);
+ }, [reduced, t]);
  return <div data-mini-game className={styles.layer}>
-  <div className={styles.hud}><span>MODO DESTRUIÇÃO</span><span aria-live="polite">Caos: {chaos}</span><button onClick={onExit}>Reconstruir site</button></div>
+  <div className={styles.hud}><span>{t.destruction.mode}</span><span aria-live="polite">{t.destruction.chaos}: {chaos}</span><button onClick={onExit}>{t.destruction.rebuild}</button></div>
   <div ref={player} className={styles.player}><MiniRenanAvatar state="judging" variant="default" /></div>
   {message && <div className={styles.speech} role="status">{message}</div>}
-  <div className={styles.controls} aria-label="Controles do modo destruição">
-   {([-1, 1] as const).map(direction => <button key={direction} aria-label={direction === -1 ? "Mover para esquerda" : "Mover para direita"} onPointerDown={event => { event.currentTarget.setPointerCapture(event.pointerId); controls.current.direction = direction; }} onPointerUp={() => { controls.current.direction = 0; }} onPointerCancel={() => { controls.current.direction = 0; }}>{direction === -1 ? "←" : "→"}</button>)}
-   <button aria-label="Pular" onClick={() => { controls.current.jump = true; }}>↑</button><button aria-label="Atacar" onClick={() => { controls.current.attack = true; }}>✳</button>
+  <div className={styles.controls} aria-label={t.destruction.controls}>
+   {([-1, 1] as const).map(direction => <button key={direction} aria-label={direction === -1 ? t.destruction.left : t.destruction.right} onPointerDown={event => { event.currentTarget.setPointerCapture(event.pointerId); controls.current.direction = direction; }} onPointerUp={() => { controls.current.direction = 0; }} onPointerCancel={() => { controls.current.direction = 0; }}>{direction === -1 ? "←" : "→"}</button>)}
+   <button aria-label={t.destruction.jump} onClick={() => { controls.current.jump = true; }}>↑</button><button aria-label={t.destruction.attack} onClick={() => { controls.current.attack = true; }}>✳</button>
   </div>
-  {confirmExit && <MiniDialog title="Sair do modo destruição?" onClose={() => setConfirmExit(false)}><div className={styles.actions}><button onClick={() => setConfirmExit(false)}>Continuar destruindo</button><button onClick={onExit}>Reconstruir site</button></div></MiniDialog>}
+  {confirmExit && <MiniDialog title={t.destruction.exitTitle} onClose={() => setConfirmExit(false)}><div className={styles.actions}><button onClick={() => setConfirmExit(false)}>{t.destruction.keepGoing}</button><button onClick={onExit}>{t.destruction.rebuild}</button></div></MiniDialog>}
  </div>;
 }

@@ -1,0 +1,3 @@
+.pixel-reveal { position: absolute; inset: 0; z-index: 3; display: block; width: 100%; height: 100%; pointer-events: none; }
+/* Once the canvas holds the cover, its CSS background (the cover before hydration) steps aside. */
+.pixel-reveal[data-painted="true"] { background: transparent !important; }

@@ -1,0 +1,57 @@
+/* Service page: the home's editorial language (display type, pixel labels, thin rules, the shared Button) on a white
+   page, set as a readable document rather than a sales landing page. */
+.sites-page { --sites-muted: #62675f; --sites-line: rgb(36 38 35 / .1); background: var(--surface-home); color: var(--ink); }
+
+.sites-hero { padding-block: clamp(150px, 18vw, 220px) clamp(72px, 8vw, 112px); }
+.sites-breadcrumb { display: flex; gap: 8px; margin-bottom: 40px; font-size: 13px; color: var(--sites-muted); }
+.sites-breadcrumb a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--sites-line); text-underline-offset: 4px; }
+.sites-label { display: block; margin-bottom: 24px; font-family: var(--type-accent); font-size: 12px; line-height: 1.5; color: var(--sites-muted); }
+.sites-hero h1 { max-width: 13ch; margin: 0; font-family: var(--type-display); font-size: clamp(44px, 7vw, 112px); font-weight: 500; line-height: 1.02; letter-spacing: -.055em; text-wrap: balance; }
+.sites-lead { max-width: 760px; margin: 36px 0 0; font-size: clamp(20px, 2vw, 28px); line-height: 1.4; letter-spacing: -.01em; color: var(--sites-muted); }
+.sites-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+.sites-reach { margin: 24px 0 0; font-size: 16px; line-height: 1.6; color: var(--sites-muted); }
+
+.sites-block { padding-block: clamp(64px, 8vw, 112px); border-top: 1px solid var(--sites-line); }
+.sites-block-head { display: grid; gap: 0; max-width: 760px; margin-bottom: clamp(40px, 5vw, 64px); }
+.sites-block-head h2 { margin: 0; font-family: var(--type-display); font-size: clamp(32px, 4.2vw, 64px); font-weight: 500; line-height: 1.06; letter-spacing: -.045em; text-wrap: balance; }
+.sites-block-head p { margin: 24px 0 0; font-size: 20px; line-height: 1.5; color: var(--sites-muted); }
+.sites-page h3 { margin: 0; font-family: var(--type-display); font-size: clamp(22px, 2vw, 28px); font-weight: 500; line-height: 1.2; letter-spacing: -.035em; }
+.sites-page p { text-wrap: pretty; }
+
+/* What I build: four cards, two per row on wide screens; each is an anchor target for links from other pages. */
+.sites-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.sites-card { padding: clamp(24px, 3vw, 40px); border-radius: 14px; background: var(--paper); scroll-margin-top: 120px; }
+.sites-card p { margin: 16px 0 0; font-size: 16px; line-height: 1.6; color: var(--sites-muted); }
+.sites-card .sites-fit { padding-top: 16px; border-top: 1px solid var(--sites-line); font-size: 14px; color: var(--ink); }
+
+.sites-list, .sites-steps { margin: 0; padding: 0; list-style: none; }
+.sites-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 40px 32px; }
+.sites-list li { padding-top: 20px; border-top: 1px solid var(--ink); }
+.sites-list p, .sites-steps p { margin: 12px 0 0; font-size: 16px; line-height: 1.6; color: var(--sites-muted); }
+
+.sites-steps li { display: grid; grid-template-columns: 80px minmax(0, 320px) minmax(0, 1fr); gap: 8px 32px; align-items: baseline; padding-block: 28px; border-top: 1px solid var(--sites-line); }
+.sites-steps li p { margin: 0; }
+.sites-step-number { font-family: var(--type-accent); font-size: 14px; color: var(--sites-muted); }
+
+.sites-faq { max-width: 960px; border-bottom: 1px solid var(--sites-line); }
+.sites-faq details { border-top: 1px solid var(--sites-line); }
+.sites-faq summary { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-block: 24px; cursor: pointer; list-style: none; }
+.sites-faq summary::-webkit-details-marker { display: none; }
+.sites-faq summary h3 { font-size: clamp(19px, 1.6vw, 24px); }
+.sites-faq summary > span { position: relative; flex: 0 0 16px; width: 16px; height: 16px; }
+.sites-faq summary > span::before, .sites-faq summary > span::after { content: ''; position: absolute; top: 7px; left: 0; width: 16px; height: 2px; background: var(--ink); transition: transform .25s ease; }
+.sites-faq summary > span::after { transform: rotate(90deg); }
+.sites-faq details[open] summary > span::after { transform: rotate(0); }
+.sites-faq summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.sites-faq details p { max-width: 720px; margin: 0; padding-bottom: 28px; font-size: 17px; line-height: 1.6; color: var(--sites-muted); }
+
+@media (max-width: 767px) {
+ .sites-breadcrumb { margin-bottom: 28px; }
+ .sites-label { font-size: 11px; }
+ .sites-grid { grid-template-columns: minmax(0, 1fr); }
+ .sites-steps li { grid-template-columns: 48px minmax(0, 1fr); }
+ .sites-steps li p { grid-column: 2; }
+ .sites-block-head p { font-size: 18px; }
+}
+@media (max-width: 480px) { .sites-actions { flex-direction: column; align-items: stretch; } }
+@media (prefers-reduced-motion: reduce) { .sites-faq summary > span::before, .sites-faq summary > span::after { transition: none; } }
