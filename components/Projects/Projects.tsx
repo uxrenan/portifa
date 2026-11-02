@@ -2,22 +2,33 @@
 
 import Image from "next/image";
 import { ProjectCursor, ProjectVisual } from "./ProjectVisual";
-import { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, type MotionStyle, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, type CSSProperties } from "react";
+import { motion, useInView, useScroll, useTransform, type MotionStyle, useReducedMotion } from "framer-motion";
 import { projects, type SelectedProject } from "@/config/projects";
 import "./projects.css";
 import { RenanLabzPreview } from "@/components/RenanLabzPreview/RenanLabzPreview";
 
-const ease = [0.22, 1, 0.36, 1] as const;
+/** The image arrives in pixels: a grid of panel-coloured squares (24×15, square cells on the 16:10 frame) that blink out
+ * in a diagonal wave from the top-left, each with a scattered offset so the wave dissolves instead of stepping. */
+const PIXEL_COLUMNS = 24;
+const PIXEL_ROWS = 15;
+const PIXELS = Array.from({ length: PIXEL_COLUMNS * PIXEL_ROWS }, (_, index) => {
+  const x = index % PIXEL_COLUMNS, y = Math.floor(index / PIXEL_COLUMNS);
+  const jitter = (Math.imul(index + 1, 2654435761) >>> 0) % 1000 / 1000; // a fixed hash, so server and client agree
+  return `${Math.round((x + y) * 14 + jitter * 260)}ms`;
+});
 
-function Project({ project, reduced }: { project: SelectedProject; reduced: boolean }) {
-  return <motion.article layout={!reduced} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : .22 }} className="project" data-project-card={project.cursorLabel ?? "Ver projeto"} aria-labelledby={`project-${project.number}`}>
+function Project({ project, index, reduced }: { project: SelectedProject; index: number; reduced: boolean }) {
+  const card = useRef<HTMLElement>(null);
+  const shown = useInView(card, { once: true, amount: .25 });
+  // Cards side by side start a beat apart.
+  const style = { "--project-delay": `${(index % 2) * 140}ms` } as CSSProperties;
+  return <motion.article ref={card} layout={!reduced} className="project" data-shown={reduced || shown} style={style} data-project-card={project.cursorLabel ?? "Ver projeto"} aria-labelledby={`project-${project.number}`}>
     <ProjectVisual title={project.title}>
-      <motion.div className="project-image-reveal" initial={false} whileInView={reduced ? {} : { clipPath: ["inset(10% 0 10% 0)", "inset(0% 0 0% 0)"] }} viewport={{ once: true, amount: .2 }} transition={{ duration: .95, ease }}>
-        <motion.div className="project-image-motion" initial={false} whileInView={reduced ? {} : { scale: [1.06, 1] }} viewport={{ once: true, amount: .2 }} transition={{ duration: 1.1, ease }}>
-          <Image src={project.image} alt={project.alt} fill sizes="(max-width: 767px) 92vw, 46vw" className="project-image" />
-        </motion.div>
-      </motion.div>
+      <div className="project-image-motion">
+        <Image src={project.image} alt={project.alt} fill sizes="(max-width: 767px) 92vw, 46vw" className="project-image" />
+      </div>
+      {!reduced && <span className="project-pixels" aria-hidden="true">{PIXELS.map((delay, cell) => <span key={cell} style={{ "--pixel-delay": delay } as CSSProperties} />)}</span>}
     </ProjectVisual>
     <h3 id={`project-${project.number}`}>{project.title}</h3>
     <div className="project-meta"><span>{project.category}</span><span aria-label={`Ano: ${project.year}`}>{project.year}</span></div>
@@ -49,7 +60,7 @@ export function Projects() {
         <span>projetos</span>
       </h2>
     </div>
-    <motion.div layout={!reduced} transition={{ duration: reduced ? 0 : .25 }} id="projects-grid" className="projects-grid">{projects.map(project => <Project key={project.number} project={project} reduced={reduced} />)}</motion.div>
+    <motion.div layout={!reduced} transition={{ duration: reduced ? 0 : .25 }} id="projects-grid" className="projects-grid">{projects.map((project, index) => <Project key={project.number} project={project} index={index} reduced={reduced} />)}</motion.div>
     <RenanLabzPreview />
     <ProjectCursor reduced={reduced} />
   </motion.section>;

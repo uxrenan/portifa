@@ -10,7 +10,17 @@
 .project { min-width: 0; }
 .project-visual { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 14px; background: #323a31; }
 .project-visual:focus-visible { outline: 2px solid var(--project-paper); outline-offset: 7px; }
-.project-image-reveal, .project-image-motion { position: absolute; inset: 0; }
+.project-image-motion { position: absolute; inset: 0; }
+/* Entrance: the picture appears as the panel's pixels blink out over it (each square vanishes in one step, no fade), while
+   it settles from a slight zoom; the title and meta follow. Transforms and opacity only. */
+.project-pixels { position: absolute; inset: 0; z-index: 1; display: grid; grid-template-columns: repeat(24, 1fr); grid-template-rows: repeat(15, 1fr); pointer-events: none; }
+.project-pixels > span { margin: -.5px; background: #171a18; transition: opacity 0s linear calc(var(--project-delay, 0ms) + var(--pixel-delay)); }
+.project[data-shown="true"] .project-pixels > span { opacity: 0; }
+.project-image-motion { transform: scale(1.06); transition: transform 1.1s cubic-bezier(.22, 1, .36, 1) var(--project-delay, 0ms); }
+.project h3, .project-meta { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .6s cubic-bezier(.22, 1, .36, 1); }
+.project h3 { transition-delay: calc(var(--project-delay, 0ms) + 380ms); }
+.project-meta { transition-delay: calc(var(--project-delay, 0ms) + 460ms); }
+.project[data-shown="true"] .project-image-motion, .project[data-shown="true"] h3, .project[data-shown="true"] .project-meta { opacity: 1; transform: none; }
 .project-image { object-fit: cover; transition: transform .7s cubic-bezier(.22,1,.36,1); }
 .project h3 { margin: 22px 0 16px; font-family: var(--type-display); font-weight: 500; font-size: clamp(22px, 2vw, 34px); line-height: 1.15; letter-spacing: -.045em; }
 .project-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding-top: 17px; font-size: 12px; color: #b3bbb2; line-height: 1.4; }
@@ -18,7 +28,7 @@
 @media (hover: hover) and (pointer: fine) {
  .project-visual:hover .project-image { transform: scale(1.035); }
 }
-.projects-section[data-reduced-motion="true"] .project-image { transform: none; transition: none; }
+.projects-section[data-reduced-motion="true"] :is(.project-image, .project-image-motion, .project h3, .project-meta) { transform: none; transition: none; }
 @media (min-width: 768px) and (max-width: 1023px) {
  .projects-section { --projects-panel-inset: 12px; --projects-panel-radius: 20px; }
  .project-visual { border-radius: 12px; }
