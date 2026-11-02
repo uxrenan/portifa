@@ -132,7 +132,8 @@ export const en: Dictionary = {
     sites: "Website design",
     email: "Email",
     madeWith: "Made with curiosity.",
-    stickers: { ui: "Interface", ux: "UX", dog: "Dog", football: "Tricolor football", labz: "Renan Labz", pixel: "Pixel cursor" },
+    hello: "hello!",
+    stickers: { ui: "Interface", ux: "UX", dog: "Dog", football: "Tricolor football", labz: "Renan Labz", pixel: "Pixel cursor", place: "Rio Grande stamp with the lighthouse", palette: "The site's color palette", phone: "Phone with a wireframe", mini: "Mini Renan", "mini-labz": "Mini Renan at the Labz", hello: "Speech bubble saying hello", pen: "Vector pen tool" },
   },
   sitesPage: {
     breadcrumb: "You are here",

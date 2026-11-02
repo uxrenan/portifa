@@ -136,7 +136,9 @@ export const ptBR = {
     sites: "Criação de sites",
     email: "E-mail",
     madeWith: "Feito com curiosidade.",
-    stickers: { ui: "Interface", ux: "UX", dog: "Cachorro", football: "Futebol tricolor", labz: "Renan Labz", pixel: "Cursor pixelado" },
+    /** Texto do adesivo em balão. */
+    hello: "olá!",
+    stickers: { ui: "Interface", ux: "UX", dog: "Cachorro", football: "Futebol tricolor", labz: "Renan Labz", pixel: "Cursor pixelado", place: "Selo de Rio Grande com o farol", palette: "Paleta de cores do site", phone: "Celular com wireframe", mini: "Mini Renan", "mini-labz": "Mini Renan no Labz", hello: "Balão dizendo olá", pen: "Pena de vetor" },
   },
   sitesPage: {
     breadcrumb: "Você está em",
