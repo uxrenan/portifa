@@ -11,10 +11,8 @@
 .footer-content a:focus-visible, .footer-sticker:focus-visible { outline: 2px solid #eceee8; outline-offset: 5px; }
 .footer-meta { display: flex; justify-content: space-between; gap: 20px; margin-top: 20px; font-family: var(--type-body); font-size: 11px; color: #8e978c; line-height: 1.5; }
 .footer-collage { position: relative; height: clamp(250px, 22vw, 320px); margin-top: 12px; }
-.footer-sticker { position: absolute; padding: 0; border: 0; background: none; cursor: default; filter: drop-shadow(0 5px 5px rgb(0 0 0 / .18)); }
-.footer-sticker svg { display: block; width: 100%; height: auto; pointer-events: none; }
-.footer-collage[data-draggable=true] .footer-sticker { cursor: grab; touch-action: none; }
-.footer-collage[data-draggable=true] .footer-sticker:active { cursor: grabbing; }
+.footer-sticker { position: absolute; }
+.footer-sticker svg { height: auto; }
 .footer-sticker--ui { left: 1%; top: 32px; width: clamp(160px, 18vw, 250px); z-index: 2; }
 .footer-sticker--ux { left: 21%; top: 94px; width: clamp(110px, 13vw, 185px); z-index: 3; }
 .footer-sticker--dog { left: 37%; top: 6px; width: clamp(180px, 21vw, 290px); z-index: 4; }

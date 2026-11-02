@@ -1,6 +1,6 @@
-.projects-section { --project-paper: #eceee8; --projects-dot-color: rgb(236 238 232 / .10); --projects-final-inset: 16px; --projects-panel-inset: var(--projects-final-inset); --projects-panel-radius: 20px; --projects-editorial-line: rgb(255 255 255 / .12); position: relative; padding-top: 96px; background: var(--surface-home); color: var(--project-paper); scroll-margin-top: 96px; overflow: clip; }
+.projects-section { --project-paper: #eceee8; --projects-dot-color: rgb(236 238 232 / .10); --projects-final-inset: 16px; --projects-panel-inset: var(--projects-final-inset); --projects-panel-radius: 20px; position: relative; padding-top: 96px; background: var(--surface-home); color: var(--project-paper); scroll-margin-top: 96px; overflow: clip; }
 .projects-section::after { content: ''; position: absolute; inset: 96px calc(var(--projects-panel-inset) + var(--projects-scrollbar, 0px)) 0 var(--projects-panel-inset); background-color: #171a18; background-image: radial-gradient(circle, var(--projects-dot-color) .75px, transparent 1px); background-size: 28px 28px; border-radius: var(--projects-panel-radius); pointer-events: none; }
-.projects-intro, .projects-grid, .projects-outro { position: relative; z-index: 2; }
+.projects-intro, .projects-grid { position: relative; z-index: 2; }
 .projects-intro { display: grid; width: var(--site-width); margin-inline: auto; padding-block: 136px 52px; }
 .projects-intro h2 { display: flex; justify-content: center; align-items: center; gap: .23em; margin: 0; font-family: var(--type-display); font-weight: 500; font-size: clamp(40px, 6.4vw, 100px); line-height: 1.08; letter-spacing: -.055em; white-space: nowrap; }
 .projects-heading-mark { display: block; width: .86em; height: .86em; flex: 0 0 .86em; color: var(--accent-blue); animation: projects-mark-turn 32s linear infinite; }
@@ -15,16 +15,10 @@
 .project h3 { margin: 22px 0 16px; font-family: var(--type-display); font-weight: 500; font-size: clamp(22px, 2vw, 34px); line-height: 1.15; letter-spacing: -.045em; }
 .project-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding-top: 17px; font-size: 12px; color: #b3bbb2; line-height: 1.4; }
 .project-meta > span:last-child { flex-shrink: 0; }
-.projects-outro { min-height: 148px; padding: 49px var(--gutter) 48px; display: flex; align-items: center; gap: 40px; }
-.projects-outro > span { font-size: 11px; color: #b3bbb2; }
-.projects-outro a { display: flex; align-items: center; justify-content: space-between; gap: 60px; flex: 1; font-family: var(--type-body); font-size: clamp(32px, 2.55vw, 44px); line-height: 1.2; letter-spacing: -.045em; transition: opacity .25s; }
-.projects-outro a span { transition: transform .3s; }
-.projects-outro a:hover { opacity: .82; }
-.projects-outro a:hover span { transform: translate(3px, -3px); }
 @media (hover: hover) and (pointer: fine) {
  .project-visual:hover .project-image { transform: scale(1.035); }
 }
-.projects-section[data-reduced-motion="true"] .project-image, .projects-section[data-reduced-motion="true"] .projects-outro a span { transform: none; transition: none; }
+.projects-section[data-reduced-motion="true"] .project-image { transform: none; transition: none; }
 @media (min-width: 768px) and (max-width: 1023px) {
  .projects-section { --projects-panel-inset: 12px; --projects-panel-radius: 20px; }
  .project-visual { border-radius: 12px; }
@@ -38,15 +32,7 @@
  .projects-grid { grid-template-columns: minmax(0, 1fr); gap: 52px; padding-top: 32px; padding-bottom: 80px; }
  .project h3 { margin-top: 18px; font-size: 25px; }
  .project-meta { font-size: 11px; padding-top: 15px; }
- .projects-outro { min-height: 116px; padding: 33px var(--gutter) 32px; gap: 16px; flex-direction: row; }
- .projects-outro > span { flex-shrink: 0; font-size: 10px; }
- .projects-outro a { min-width: 0; gap: 16px; font-size: clamp(23px, 6vw, 30px); }
- .projects-outro a span { flex-shrink: 0; }
 }
-
-/* The white opening joins a scroll-revealed dark project panel. */
-.projects-section { background: #fff; }
-@media (prefers-reduced-motion: reduce) { .projects-section { clip-path: none !important; } .projects-intro { transform: none !important; } }
 
 @media (max-width: 767px) { .projects-section { --projects-final-inset: 8px; --projects-dot-color: rgb(236 238 232 / .065); } }
 

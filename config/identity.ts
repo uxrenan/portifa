@@ -1,6 +1,5 @@
 // Signature font; the main editorial typography remains independent.
 export const WORDMARK_FONT = "var(--font-bitcount)";
-export const EDITORIAL_FONT = "var(--font-wordmark)";
 export const CONTACT_HREF = "https://wa.me/5553991739258";
 export const ALWAYS_SHOW_INTRO = true;
 export const INTRO_SESSION_KEY = "renan:intro-seen";

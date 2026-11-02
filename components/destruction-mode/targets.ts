@@ -1,5 +1,5 @@
 // Explicit allowlist: sections, roots and layout wrappers are never targets.
-export const TARGET_SELECTOR = ".hero-poster h1, section h2, section h3, section p, .project-visual, .hero-sticker, .site-header a, .site-footer a, .contact-action, .projects-filters button";
+const TARGET_SELECTOR = ".hero-poster h1, section h2, section h3, section p, .project-visual, .site-header a, .site-footer a, .contact-action";
 
 export function prepareTargets() {
  const targets = [...document.querySelectorAll<HTMLElement>(TARGET_SELECTOR)].filter(element => !element.closest("[data-mini-game],dialog") && !element.querySelector(TARGET_SELECTOR));

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { CONTACT_HREF } from "@/config/identity";
 import { HERO_COPY, HERO_MOTION, HERO_ASSETS } from "@/config/hero";
 import { HeroObject } from "./HeroObject";
+import { HeroLightBeams } from "./HeroLightBeams";
 import { useHeroEntrance } from "./useHeroEntrance";
 import "./hero.css";
 
@@ -13,6 +14,7 @@ export function Hero() {
   const section = useRef<HTMLElement>(null);
   const slots = useRef<(HTMLSpanElement | null)[]>([]);
   return <main className="hero-frame"><section ref={section} className="hero-poster" data-visible={ready} aria-hidden={!ready} inert={!ready} aria-labelledby="hero-headline">
+    <HeroLightBeams play={ready} reduced={!!reduced} />
     <motion.div className="hero-topline" initial={{ opacity: 0 }} animate={{ opacity: ready ? 1 : 0 }} transition={{ duration: reduced ? .12 : .3 }}>
       <span>PRODUCT / UX/UI DESIGNER · BRASIL · 2026</span>
       <span className="hero-status"><i aria-hidden="true" />Disponível para projetos</span>
@@ -26,7 +28,7 @@ export function Hero() {
         </div>)}
       </h1>
     </div>
-    <div className="hero-object-layer">{HERO_ASSETS.map((asset, index) => <HeroObject key={asset.id} asset={asset} index={index} section={section} slots={slots} ready={ready} reduced={!!reduced} />)}</div>
+    <div className="hero-object-layer">{HERO_ASSETS.map((asset, index) => <HeroObject key={asset.id} asset={asset} index={index} section={section} slots={slots} ready={ready} />)}</div>
     <motion.div className="hero-editorial-bottom" initial={{ opacity: 0, y: reduced ? 0 : 8 }} animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : reduced ? 0 : 8 }} transition={{ duration: reduced ? .12 : .35, delay: reduced ? 0 : .65 }}>
       <div className="hero-expertise">
         <dl className="hero-coordinates">
@@ -36,7 +38,7 @@ export function Hero() {
         </dl>
       </div>
       <div className="hero-connect">
-        <p className="hero-support-copy"><strong>+5 anos transformando ideias em sites, produtos e experiências digitais</strong>{" "}<span>que impactam pessoas — e</span>{" "}<strong>geram resultados.</strong></p>
+        <p className="hero-support-copy">+5 anos transformando ideias em sites, produtos e experiências digitais que <strong>impactam pessoas</strong> — e geram resultados.</p>
         <div className="hero-actions">
          <a className="hero-primary" href="#projetos"><span className="hero-cta-label">Ver projetos</span><span className="hero-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" /></svg><svg viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" /></svg></span></a>
          <a className="hero-secondary" href={CONTACT_HREF} target="_blank" rel="noopener noreferrer" aria-label="Vamos conversar pelo WhatsApp, abre em nova aba"><span className="hero-cta-label">Vamos conversar</span><span className="hero-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" /></svg><svg viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" /></svg></span></a>

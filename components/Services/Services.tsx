@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { services } from "@/config/services";
 import "./services.css";
+import { PixelConstellation } from "@/components/PixelConstellation/PixelConstellation";
 
 
 function Service({ service, compact, onHover, onFocus }: { service: typeof services[number]; compact: boolean; onHover: (active: boolean) => void; onFocus: (active: boolean) => void }) {
@@ -83,7 +84,7 @@ export function Services() {
     <div className="services-header-surface" aria-hidden="true" />
     <div className="services-content">
     <header className="services-intro">
-      <div className="services-label"><span>(03) O QUE EU FAÇO</span><span>ESTRATÉGIA → INTERFACE</span></div>
+      <div className="services-label"><span className="pixel-marker"><PixelConstellation variant="north" />O QUE EU FAÇO</span><span>ESTRATÉGIA → INTERFACE</span></div>
       <h2 id="services-title">Da ideia à interface.<br /><span>Design para produtos<br />que precisam funcionar.</span></h2>
       {!compact && <div className="services-sticky-preview" data-scroll-active={services[scrollActive].number} data-preview-active={preview.number}>
         <div className="services-preview-frame">

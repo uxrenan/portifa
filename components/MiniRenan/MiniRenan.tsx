@@ -87,7 +87,7 @@ export function MiniRenan() {
     for (const entry of entries) { if (entry.isIntersecting) collisions.add(entry.target); else collisions.delete(entry.target); }
     setRaised(collisions.size > 0);
    }, { rootMargin: `-${Math.max(0, innerHeight - 120)}px 0px 0px -${Math.max(0, innerWidth - 120)}px`, threshold: 0 });
-   document.querySelectorAll(".header-contact,.contact-action,.projects-outro a,.projects-filters button,.project-visual").forEach(e => observer.observe(e));
+   document.querySelectorAll(".header-contact,.contact-action,.project-visual").forEach(e => observer.observe(e));
   };
   setup(); window.addEventListener("resize", setup);
   return () => { observer.disconnect(); window.removeEventListener("resize", setup); };

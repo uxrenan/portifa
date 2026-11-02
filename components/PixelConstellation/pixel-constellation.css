@@ -1,0 +1,12 @@
+.pixel-marker { display: inline-flex; align-items: center; gap: .7em; }
+/* Graphite pixels by default; a section on a dark surface sets --pixel-ink to its light ink. */
+.pixel-constellation { flex: 0 0 auto; width: 2.24em; height: 1.6em; overflow: visible; fill: var(--pixel-ink, var(--ink)); shape-rendering: crispEdges; }
+/* A wave of light crosses the star: each pixel flashes, dims, then settles, in quantised steps (no fades). */
+.pixel-constellation rect { opacity: var(--level); animation: pixel-wave 3.6s step-end var(--delay) infinite; }
+@keyframes pixel-wave {
+  0%, 52%, 100% { opacity: var(--level); }
+  54% { opacity: 1; }
+  58% { opacity: calc(var(--level) * .25); }
+  62% { opacity: calc(var(--level) * .6); }
+}
+@media (prefers-reduced-motion: reduce) { .pixel-constellation rect { animation: none; } }

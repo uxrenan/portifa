@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useMotionValue, useReducedMotion } from "framer-motion";
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { Sticker } from "@/components/Sticker/Sticker";
 import "./footer.css";
 
 const stickers = [
@@ -23,41 +24,14 @@ function StickerArt({ kind }: { kind: string }) {
  </svg>;
 }
 
-function FooterSticker({ item, index, area, draggable, reduced }: { item: typeof stickers[number]; index: number; area: RefObject<HTMLDivElement | null>; draggable: boolean; reduced: boolean }) {
- const x = useMotionValue(0);
- const y = useMotionValue(0);
- useEffect(() => { if (!draggable) { x.set(0); y.set(0); } }, [draggable, x, y]);
- return <motion.button type="button" className={`footer-sticker footer-sticker--${item.kind}`} aria-label={`${item.name}. ${draggable ? "Use as setas para mover; Home para reposicionar." : "Sticker decorativo."}`} tabIndex={draggable ? 0 : -1}
-  style={{ x, y }} drag={draggable} dragConstraints={area} dragElastic={0} dragMomentum={false}
-  initial={reduced ? false : { opacity: 0, scale: .96, rotate: item.rotation }} whileInView={{ opacity: 1, scale: 1, rotate: item.rotation }} viewport={{ once: true, amount: .1 }} transition={{ duration: reduced ? 0 : .5, delay: reduced ? 0 : index * .06 }}
-  whileDrag={reduced ? undefined : { scale: 1.03 }}
-  onKeyDown={event => {
-   if (!draggable) return;
-   if (event.key === "Home") { event.preventDefault(); x.set(0); y.set(0); }
-   if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
-   event.preventDefault();
-   const bounds = area.current;
-   const element = event.currentTarget;
-   if (!bounds) return;
-   const dx = event.key === "ArrowLeft" ? -10 : event.key === "ArrowRight" ? 10 : 0;
-   const dy = event.key === "ArrowUp" ? -10 : event.key === "ArrowDown" ? 10 : 0;
-   if (dx) x.set(Math.max(-element.offsetLeft, Math.min(x.get() + dx, bounds.clientWidth - element.offsetLeft - element.offsetWidth)));
-   if (dy) y.set(Math.max(-element.offsetTop, Math.min(y.get() + dy, Math.max(0, bounds.clientHeight - element.offsetTop - element.offsetHeight))));
-  }}><StickerArt kind={item.kind} /></motion.button>;
-}
-
 export function Footer() {
  const reduced = !!useReducedMotion();
  const footer = useRef<HTMLElement>(null);
  const area = useRef<HTMLDivElement>(null);
- const [draggable, setDraggable] = useState(false);
  useEffect(() => {
-  const media = matchMedia("(min-width: 1024px) and (pointer: fine)");
-  const update = () => setDraggable(media.matches);
-  update(); media.addEventListener("change", update);
   const measure = () => footer.current?.style.setProperty("--footer-scrollbar", `${innerWidth - document.documentElement.clientWidth}px`);
   const observer = new ResizeObserver(measure); observer.observe(document.documentElement); measure();
-  return () => { media.removeEventListener("change", update); observer.disconnect(); };
+  return () => observer.disconnect();
  }, []);
  return <footer ref={footer} className="site-footer">
   <div className="footer-background" aria-hidden="true" />
@@ -68,7 +42,7 @@ export function Footer() {
     <nav aria-label="Navegação do rodapé" className="footer-links"><a href="#projetos">Projetos</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#labz">Labz</a></nav>
    </div>
    <div className="footer-meta"><span>© 2026 Renan Marques</span><span>Feito com curiosidade.</span></div>
-   <div ref={area} className="footer-collage" data-draggable={draggable}>{stickers.map((item, index) => <FooterSticker key={item.kind} item={item} index={index} area={area} draggable={draggable} reduced={reduced} />)}</div>
+   <div ref={area} className="footer-collage">{stickers.map((item, index) => <Sticker key={item.kind} className={`footer-sticker footer-sticker--${item.kind}`} label={`${item.name}.`} rotation={item.rotation} shadow={1.8} delay={.1 + index * .08} constraints={area}><StickerArt kind={item.kind} /></Sticker>)}</div>
   </motion.div>
  </footer>;
 }

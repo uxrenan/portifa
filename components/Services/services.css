@@ -17,7 +17,7 @@
 .service-support { padding-top: 42px; }
 .service-support > span { font-size: 12px; color: #72776f; }
 .service-support ul { list-style: none; margin: 18px 0 0; padding: 0; }
-.service-support li { padding-block: 9px; border-bottom: 1px solid rgb(36 38 35 / .06); font-size: 14px; line-height: 1.4; }
+.service-support li { padding-block: 9px; border-bottom: 1px solid rgb(36 38 35 / .06); font-size: 16px; line-height: 1.4; }
 .service-support li:last-child { border-bottom: 0; }
 .services-section [hidden] { display: none; }
 .services-sticky-preview { margin-top: 32px; width: min(100%, 420px, calc((100svh - 430px) * 1.333)); }
@@ -28,7 +28,7 @@
 @media (min-width: 1024px) {
  .services-content { display: grid; grid-template-columns: minmax(0, .37fr) minmax(0, .63fr); align-items: start; column-gap: clamp(40px, 4vw, 72px); }
  .services-intro { position: sticky; top: 144px; align-self: start; }
- .services-label { flex-direction: column; gap: 20px; font-size: 14px; }
+ .services-label { flex-direction: column; gap: 20px; font-size: 16px; }
  .services-label > span:last-child { font-size: 12px; color: #72776f; }
  .services-intro h2 { margin: 40px 0 0; font-size: clamp(32px, 3vw, 48px); line-height: 1.12; }
  .service-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 40px; row-gap: 24px; padding-block: 48px 80px; min-height: 420px; }
@@ -59,12 +59,12 @@
 @media (max-width: 767px) {
  .services-content { padding-block: 112px 88px; }
  .services-header-surface { height: 92px; margin-bottom: -92px; }
- .services-label { font-size: 14px; }
+ .services-label { font-size: 16px; }
  .services-label > span:last-child { display: none; }
  .services-intro h2 { margin: 36px 0 56px; font-size: clamp(34px, 8.6vw, 58px); }
  .service-row { grid-template-columns: minmax(0, 1fr); gap: 16px; padding-block: 28px; }
  .service-main, .service-preview, .service-support { grid-column: 1; }
- .service-number, .service-eyebrow { font-size: 14px; }
+ .service-number, .service-eyebrow { font-size: 16px; }
  .service-eyebrow { margin-bottom: 12px; }
  .service-main h3 { font-size: 30px; }
  .service-description p { font-size: 15px; }

@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { CONTACT_HREF } from "@/config/identity";
 import "./contact.css";
+import { PixelConstellation } from "@/components/PixelConstellation/PixelConstellation";
 
 export function Contact() {
  const reduced = useReducedMotion();
@@ -25,7 +26,7 @@ export function Contact() {
   <div className="contact-panel" aria-hidden="true" />
   <div className="site-container contact-content">
    <div className="contact-intro">
-    <motion.span className="contact-label" {...reveal(0, 6)}>(05) CONTATO</motion.span>
+    <motion.span className="contact-label" {...reveal(0, 6)}><span className="pixel-marker"><PixelConstellation variant="spark" />CONTATO</span></motion.span>
     <motion.h2 id="contact-heading" className="contact-heading" {...reveal(.06, 12)}>Tem algo em mente?</motion.h2>
    </div>
    <motion.div className="contact-bottom" {...reveal(.12, 10)}>
