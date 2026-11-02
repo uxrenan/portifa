@@ -64,7 +64,6 @@ export const en: Dictionary = {
     headingLabel: "My projects",
     headingBefore: "My",
     headingAfter: "projects",
-    year: "Year",
     cursor: "View project",
     soon: "Coming soon",
     pending: "in progress",
@@ -72,10 +71,10 @@ export const en: Dictionary = {
     visit: "View site",
     newTab: "opens in a new tab",
     items: [
-      { title: "AVA / Learning Platform", category: "Digital product · Education", description: "A digital experience built around learning.", alt: "Provisional AVA mockup: a course dashboard on a laptop and a phone, in shades of green." },
-      { title: "Condomínio Waldemar", category: "Website · Rio Grande, Brazil", description: "The website of the Waldemar Pereira Duarte residential community.", alt: "A laptop on a round table showing the home page of the Condomínio Waldemar website: the community's buildings under a blue sky and the headline “Um condomínio com vida própria.”" },
-      { title: "Optimiz.ai", category: "Digital product · UX/UI", description: "Strategy, interface and experience in a single product.", alt: "Provisional Optimiz.ai mockup: a dashboard with charts and indicators in a browser window." },
-      { title: "Placeholder project", category: "Project in selection", description: "A new piece of work to complete this selection.", alt: "Neutral provisional mockup of an app on two phones, reserved for the fourth project." },
+      { title: "AVA / Learning Platform", tag: "Platform", description: "A digital experience built around learning.", alt: "Provisional AVA mockup: a course dashboard on a laptop and a phone, in shades of green." },
+      { title: "Condomínio Waldemar", tag: "Website", description: "The website of the Waldemar Pereira Duarte residential community.", alt: "A laptop on a round table showing the home page of the Condomínio Waldemar website: the community's buildings under a blue sky and the headline “Um condomínio com vida própria.”" },
+      { title: "Optimiz.ai", tag: "Digital product", description: "Strategy, interface and experience in a single product.", alt: "Provisional Optimiz.ai mockup: a dashboard with charts and indicators in a browser window." },
+      { title: "Placeholder project", tag: "Coming soon", description: "A new piece of work to complete this selection.", alt: "Neutral provisional mockup of an app on two phones, reserved for the fourth project." },
     ],
   },
   labz: {

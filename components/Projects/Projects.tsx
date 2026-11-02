@@ -19,6 +19,10 @@ function Project({ project, index, reduced }: { project: SelectedProject; index:
   const delay = (index % 2) * 140;
   const style = { "--project-delay": `${delay}ms` } as CSSProperties;
   return <motion.article ref={card} layout={!reduced} className="project" data-shown={reduced || shown} style={style} data-project-card={project.soon ? t.projects.soon : project.external ? t.projects.visit : t.projects.cursor} aria-labelledby={`project-${project.number}`}>
+    <div className="project-head">
+      <h3 id={`project-${project.number}`}>{copy.title}</h3>
+      <span className="project-tag">{copy.tag}</span>
+    </div>
     <ProjectVisual title={copy.title} href={project.external ? project.href : undefined}>
       <div className="project-image-motion">
         <Image src={project.image} alt={copy.alt} fill sizes="(max-width: 767px) 92vw, 46vw" className="project-image" />
@@ -26,8 +30,7 @@ function Project({ project, index, reduced }: { project: SelectedProject; index:
       {/* The image arrives in pixels, out of the dark panel. */}
       {!reduced && <PixelReveal columns={24} rows={15} shown={shown} delay={delay} color="#171a18" />}
     </ProjectVisual>
-    <h3 id={`project-${project.number}`}>{copy.title}</h3>
-    <div className="project-meta"><span>{copy.category}</span><span aria-label={`${t.projects.year}: ${project.year}`}>{project.year}</span></div>
+    <p className="project-description">{copy.description}</p>
   </motion.article>;
 }
 

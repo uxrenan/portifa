@@ -65,19 +65,18 @@ export const ptBR = {
     headingLabel: "Meus projetos",
     headingBefore: "Meus",
     headingAfter: "projetos",
-    year: "Ano",
     cursor: "Ver projeto",
     soon: "Em breve",
     pending: "em preparação",
     viewProject: "Ver projeto",
     visit: "Ver site",
     newTab: "abre em nova aba",
-    /** Conteúdo provisório, na ordem de config/projects.ts. */
+    /** Conteúdo provisório, na ordem de config/projects.ts: tag é o tipo do projeto e description, uma linha só. */
     items: [
-      { title: "AVA / Plataforma Educacional", category: "Produto digital · Educação", description: "Uma experiência digital voltada à aprendizagem.", alt: "Mockup provisório do AVA: painel de cursos num notebook e num celular, em tons de verde." },
-      { title: "Condomínio Waldemar", category: "Website institucional · Rio Grande, RS", description: "O site do Parque Residencial Waldemar Pereira Duarte.", alt: "Notebook sobre uma mesa redonda mostrando a página inicial do site do Condomínio Waldemar: prédios do condomínio sob o céu azul e o título “Um condomínio com vida própria.”" },
-      { title: "Optimiz.ai", category: "Produto digital · UX/UI", description: "Estratégia, interface e experiência em um mesmo produto.", alt: "Mockup provisório do Optimiz.ai: painel com gráficos e indicadores numa janela de navegador." },
-      { title: "Projeto placeholder", category: "Projeto em seleção", description: "Um novo trabalho para completar esta seleção.", alt: "Mockup provisório e neutro de um aplicativo em dois celulares, reservado para o quarto projeto." },
+      { title: "AVA / Plataforma Educacional", tag: "Plataforma", description: "Uma experiência digital voltada à aprendizagem.", alt: "Mockup provisório do AVA: painel de cursos num notebook e num celular, em tons de verde." },
+      { title: "Condomínio Waldemar", tag: "Website", description: "O site do Parque Residencial Waldemar Pereira Duarte.", alt: "Notebook sobre uma mesa redonda mostrando a página inicial do site do Condomínio Waldemar: prédios do condomínio sob o céu azul e o título “Um condomínio com vida própria.”" },
+      { title: "Optimiz.ai", tag: "Produto digital", description: "Estratégia, interface e experiência em um mesmo produto.", alt: "Mockup provisório do Optimiz.ai: painel com gráficos e indicadores numa janela de navegador." },
+      { title: "Projeto placeholder", tag: "Em breve", description: "Um novo trabalho para completar esta seleção.", alt: "Mockup provisório e neutro de um aplicativo em dois celulares, reservado para o quarto projeto." },
     ],
   },
   labz: {
