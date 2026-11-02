@@ -1,1 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1000" viewBox="0 0 1800 1000"><path fill="#cbc9bd" d="M0 0h1800v1000H0z"/><path fill="#e6e4da" d="M350 90h1100v820H350z"/><path fill="none" stroke="#afb1a1" stroke-width="2" d="M400 140h1000v720H400zM400 140l1000 720M1400 140L400 860"/><circle cx="900" cy="500" r="245" fill="#d2d3c5"/><text x="900" y="550" text-anchor="middle" font-family="Arial,sans-serif" font-size="155" letter-spacing="-8" fill="#59614e">04</text><text x="900" y="790" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" letter-spacing="5" fill="#59614e">PRÓXIMO PROJETO</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <!-- Mockup provisório e neutro: dois celulares com um app em esboço, reservado para o quarto projeto. -->
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#e7e8e3"/><stop offset="1" stop-color="#c3c6bd"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-20%" width="160%" height="150%"><feDropShadow dx="0" dy="30" stdDeviation="30" flood-color="#2a2c27" flood-opacity=".26"/></filter>
+    <clipPath id="a"><rect x="-150" y="-310" width="300" height="620" rx="38"/></clipPath>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <circle cx="800" cy="520" r="360" fill="#d7d9d2"/>
+  <!-- Celular de trás -->
+  <g transform="translate(990 520) rotate(8)">
+    <g filter="url(#shadow)"><rect x="-166" y="-326" width="332" height="652" rx="52" fill="#242623"/></g>
+    <g clip-path="url(#a)">
+      <rect x="-150" y="-310" width="300" height="620" fill="#f2f3f0"/>
+      <rect x="-122" y="-240" width="130" height="16" rx="8" fill="#242623"/>
+      <rect x="-122" y="-212" width="90" height="10" rx="5" fill="#a2a69c"/>
+      <g fill="#e2e4dd"><rect x="-122" y="-170" width="114" height="140" rx="18"/><rect x="8" y="-170" width="114" height="140" rx="18"/><rect x="-122" y="-14" width="114" height="140" rx="18"/><rect x="8" y="-14" width="114" height="140" rx="18"/></g>
+      <g fill="#c9ccc3"><circle cx="-65" cy="-112" r="24"/><rect x="38" y="-136" width="54" height="54" rx="14"/><path d="M-96 100l28-40 22 26 16-18 24 32z"/><circle cx="65" cy="44" r="24"/></g>
+      <rect x="-122" y="150" width="244" height="54" rx="27" fill="#242623"/>
+    </g>
+  </g>
+  <!-- Celular da frente -->
+  <g transform="translate(640 500) rotate(-6)">
+    <g filter="url(#shadow)"><rect x="-166" y="-326" width="332" height="652" rx="52" fill="#242623"/></g>
+    <g clip-path="url(#a)">
+      <rect x="-150" y="-310" width="300" height="620" fill="#fff"/>
+      <circle cx="-100" cy="-238" r="20" fill="#e2e4dd"/>
+      <rect x="88" y="-246" width="34" height="16" rx="8" fill="#e2e4dd"/>
+      <rect x="-122" y="-188" width="210" height="22" rx="10" fill="#242623"/>
+      <rect x="-122" y="-154" width="160" height="22" rx="10" fill="#242623"/>
+      <rect x="-122" y="-112" width="200" height="10" rx="5" fill="#a2a69c"/>
+      <rect x="-122" y="-72" width="244" height="170" rx="22" fill="#eceee8"/>
+      <circle cx="0" cy="13" r="40" fill="none" stroke="#c9ccc3" stroke-width="10" stroke-dasharray="6 14" stroke-linecap="round"/>
+      <g fill="#eceee8"><rect x="-122" y="118" width="244" height="54" rx="14"/><rect x="-122" y="182" width="244" height="54" rx="14"/></g>
+      <g fill="#c9ccc3"><circle cx="-94" cy="145" r="12"/><circle cx="-94" cy="209" r="12"/></g>
+      <g fill="#a2a69c"><rect x="-70" y="140" width="130" height="9" rx="4.5"/><rect x="-70" y="204" width="100" height="9" rx="4.5"/></g>
+      <rect x="-150" y="252" width="300" height="58" fill="#f2f3f0"/>
+      <g fill="#c9ccc3"><circle cx="-90" cy="280" r="10"/><circle cx="-30" cy="280" r="10"/><circle cx="30" cy="280" r="10"/><circle cx="90" cy="280" r="10"/></g>
+    </g>
+    <rect x="-46" y="-300" width="92" height="24" rx="12" fill="#242623"/>
+  </g>
+</svg>
