@@ -11,19 +11,19 @@ import { PixelReveal } from "@/components/PixelReveal/PixelReveal";
 import { useI18n } from "@/i18n/I18nProvider";
 
 function Project({ project, index, reduced }: { project: SelectedProject; index: number; reduced: boolean }) {
-  const { t } = useI18n();
+  const { t, path } = useI18n();
   const copy = t.projects.items[index];
   const card = useRef<HTMLElement>(null);
   const shown = useInView(card, { once: true, amount: .25 });
   // Cards side by side start a beat apart.
   const delay = (index % 2) * 140;
   const style = { "--project-delay": `${delay}ms` } as CSSProperties;
-  return <motion.article ref={card} layout={!reduced} className="project" data-shown={reduced || shown} style={style} data-project-card={project.soon ? t.projects.soon : project.external ? t.projects.visit : t.projects.cursor} aria-labelledby={`project-${project.number}`}>
+  return <motion.article ref={card} layout={!reduced} className="project" data-shown={reduced || shown} style={style} data-project-card={project.soon ? t.projects.soon : t.projects.cursor} aria-labelledby={`project-${project.number}`}>
     <div className="project-head">
       <h3 id={`project-${project.number}`}>{copy.title}</h3>
       <span className="project-tag">{copy.tag}</span>
     </div>
-    <ProjectVisual title={copy.title} href={project.external ? project.href : undefined}>
+    <ProjectVisual title={copy.title} href={project.caseKey ? path(project.caseKey) : undefined}>
       <div className="project-image-motion">
         <Image src={project.image} alt={copy.alt} fill sizes="(max-width: 767px) 92vw, 46vw" className="project-image" />
       </div>

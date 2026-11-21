@@ -7,8 +7,14 @@ export const DEFAULT_LOCALE: Locale = "pt-BR";
 export const ROUTES = {
   home: { "pt-BR": "/", en: "/en" },
   sites: { "pt-BR": "/criacao-de-sites-rio-grande", en: "/en/website-design" },
+  waldemar: { "pt-BR": "/projetos/waldemar", en: "/en/projects/waldemar" },
 } as const satisfies Record<string, Record<Locale, string>>;
 export type RouteKey = keyof typeof ROUTES;
+
+/** Pages that are project case studies; each has its copy under `cases` in the dictionaries. */
+export const CASE_KEYS = ["waldemar"] as const;
+export type CaseKey = typeof CASE_KEYS[number];
+export const isCase = (route: RouteKey): route is CaseKey => (CASE_KEYS as readonly string[]).includes(route);
 
 export const pathFor = (locale: Locale, route: RouteKey) => ROUTES[route][locale];
 

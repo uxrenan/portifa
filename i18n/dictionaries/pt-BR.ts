@@ -247,6 +247,41 @@ export const ptBR = {
       close: "Fechar",
     },
   },
+  /** Estudos de caso. Use só fatos confirmados por Renan (docs/superpowers/specs/2026-11-21-case-study-pages-design.md). */
+  cases: {
+    labels: {
+      context: "Contexto",
+      goal: "Objetivo",
+      role: "Meu papel",
+      backLabel: "Voltar aos projetos",
+      visit: "Ver site",
+      visitLabel: "Ver o site, abre em nova aba",
+      backToProjects: "Voltar aos projetos",
+      progress: "Progresso do case",
+    },
+    waldemar: {
+      name: "Condomínio Waldemar",
+      metaTitle: "Condomínio Waldemar — estudo de caso",
+      metaDescription: "Estudo de caso do site do Parque Residencial Waldemar Pereira Duarte, em Rio Grande, RS: design e desenvolvimento de um site para apresentar o condomínio a quem ainda não o conhece.",
+      shareEyebrow: "Estudo de caso · Website",
+      title: ["Uma pequena cidade", "dentro da cidade — e um", "lugar para ser conhecida."],
+      tags: ["Website", "UI Design", "Desenvolvimento", "Rio Grande, RS"],
+      context: "O Parque Residencial Waldemar Pereira Duarte faz parte de Rio Grande desde 1991. Moradia, comércio, ginásio, áreas abertas e espaços infantis convivem ali há mais de três décadas, quase como um bairro próprio.",
+      goal: "Criar um site que apresente o condomínio para quem ainda não o conhece: mostrar a rotina, a estrutura e como chegar, com a mesma sensação de comunidade de quem vive lá.",
+      role: "Design e desenvolvimento: organização do conteúdo, interface, front-end e publicação.",
+      statement: "Diferentes partes da rotina acontecem por aqui.",
+      /** Textos alternativos das telas, por id de painel em config/cases.ts. */
+      alts: {
+        hero: "Primeira dobra do site do Condomínio Waldemar no computador: prédios do condomínio sob o céu azul, o título “Um condomínio com vida própria.” e os botões Explorar os espaços e Ver localização.",
+        history: "Seção Sobre o Waldemar: foto aérea antiga do condomínio com o selo “30+ anos em Rio Grande”, o título “Um condomínio que faz parte de Rio Grande há mais de três décadas.” e a faixa verde com 1991, 30+, Av. Itália e Rio Grande.",
+        routine: "Seção Viver no Waldemar: o título “Diferentes partes da rotina acontecem por aqui.” ao lado de seis cards com ícones — segurança e acesso, comércio e serviços, convivência e áreas abertas, esporte e lazer, espaços infantis e localização.",
+        spaces: "Seção Estrutura: o título “Espaços que fazem parte do dia a dia.” e uma galeria de fotos com o centro comercial, o ginásio, o salão social, os espaços infantis, as áreas abertas, a pista de corrida e a academia ao ar livre.",
+        "mobile-1": "Site no celular: a primeira dobra com a foto dos prédios e o título “Um condomínio com vida própria.”",
+        "mobile-2": "Site no celular: a seção Viver no Waldemar com os primeiros cards da rotina.",
+        "mobile-3": "Site no celular: a seção Estrutura com a foto do centro comercial.",
+      } as Record<string, string>,
+    },
+  },
   destruction: {
     start: "Tá. Você que pediu.",
     milestones: { 1: "...", 4: "Você tá gostando disso, né?", 9: "Era pra ser só um easter egg.", 15: "Meu Lighthouse…" },
