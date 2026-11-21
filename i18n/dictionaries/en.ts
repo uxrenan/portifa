@@ -262,7 +262,15 @@ export const en: Dictionary = {
       goal: "Build a website that introduces the community to people who don't know it yet: show its daily life, its facilities and how to get there, with the same sense of community as those who live there.",
       role: "Design and development: content structure, interface, front-end and launch.",
       statement: "Different parts of daily life happen right here.",
-      alts: {},
+      alts: {
+        hero: "The first fold of the Condomínio Waldemar website on desktop: the community's buildings under a blue sky, the headline “Um condomínio com vida própria.” and the buttons to explore the spaces and see the location.",
+        history: "The About section: an old aerial photo of the community with a “30+ years in Rio Grande” badge, a headline about three decades in Rio Grande and the green band with 1991, 30+, Av. Itália and Rio Grande.",
+        routine: "The daily-life section: the headline “Diferentes partes da rotina acontecem por aqui.” beside six cards with icons — security and access, shops and services, open areas, sports and leisure, play spaces and location.",
+        spaces: "The facilities section: a photo gallery of the shopping area, the gym, the function hall, the play spaces, the open areas, the running track and the outdoor gym.",
+        "mobile-1": "The website on a phone: the first fold with the photo of the buildings and the headline “Um condomínio com vida própria.”",
+        "mobile-2": "The website on a phone: the daily-life section with its first cards.",
+        "mobile-3": "The website on a phone: the facilities section with the photo of the shopping area.",
+      },
     },
   },
   destruction: {

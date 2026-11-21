@@ -271,7 +271,15 @@ export const ptBR = {
       role: "Design e desenvolvimento: organização do conteúdo, interface, front-end e publicação.",
       statement: "Diferentes partes da rotina acontecem por aqui.",
       /** Textos alternativos das telas, por id de painel em config/cases.ts. */
-      alts: {} as Record<string, string>,
+      alts: {
+        hero: "Primeira dobra do site do Condomínio Waldemar no computador: prédios do condomínio sob o céu azul, o título “Um condomínio com vida própria.” e os botões Explorar os espaços e Ver localização.",
+        history: "Seção Sobre o Waldemar: foto aérea antiga do condomínio com o selo “30+ anos em Rio Grande”, o título “Um condomínio que faz parte de Rio Grande há mais de três décadas.” e a faixa verde com 1991, 30+, Av. Itália e Rio Grande.",
+        routine: "Seção Viver no Waldemar: o título “Diferentes partes da rotina acontecem por aqui.” ao lado de seis cards com ícones — segurança e acesso, comércio e serviços, convivência e áreas abertas, esporte e lazer, espaços infantis e localização.",
+        spaces: "Seção Estrutura: o título “Espaços que fazem parte do dia a dia.” e uma galeria de fotos com o centro comercial, o ginásio, o salão social, os espaços infantis, as áreas abertas, a pista de corrida e a academia ao ar livre.",
+        "mobile-1": "Site no celular: a primeira dobra com a foto dos prédios e o título “Um condomínio com vida própria.”",
+        "mobile-2": "Site no celular: a seção Viver no Waldemar com os primeiros cards da rotina.",
+        "mobile-3": "Site no celular: a seção Estrutura com a foto do centro comercial.",
+      } as Record<string, string>,
     },
   },
   destruction: {
