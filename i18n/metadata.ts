@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import { SITE_NAME, SITE_URL } from "@/config/site";
-import { alternatesFor, OG_LOCALE, type Locale, type RouteKey } from "./config";
+import { alternatesFor, isCase, OG_LOCALE, type Locale, type RouteKey } from "./config";
 import { getDictionary } from "./dictionaries";
 
 const ROBOTS: Metadata["robots"] = { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } };
 
 /** Complete metadata for one page in one language: its own title, description, canonical URL and hreflang alternates. */
 export function pageMetadata(locale: Locale, route: RouteKey): Metadata {
-  const t = getDictionary(locale).meta;
-  const home = route === "home";
-  const title = home ? t.homeTitle : `${t.sitesTitle} | ${SITE_NAME}`;
-  const description = home ? t.homeDescription : t.sitesDescription;
+  const dictionary = getDictionary(locale);
+  const t = dictionary.meta;
+  const [title, description] = route === "home" ? [t.homeTitle, t.homeDescription]
+    : isCase(route) ? [`${dictionary.cases[route].metaTitle} | ${SITE_NAME}`, dictionary.cases[route].metaDescription]
+    : [`${t.sitesTitle} | ${SITE_NAME}`, t.sitesDescription];
   const alternates = alternatesFor(locale, route);
   return {
     metadataBase: new URL(SITE_URL),

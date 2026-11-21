@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { SITE_NAME } from "@/config/site";
-import type { Locale, RouteKey } from "@/i18n/config";
+import { isCase, type Locale, type RouteKey } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
 // Social share image (Open Graph / Twitter), drawn in the site's own vocabulary: paper background, ink type and a row of
@@ -10,8 +10,11 @@ const PALETTE = ["#3F5FFF", "#8A63D2", "#4F7355", "#FF6433", "#E9BB3F"];
 
 /** The share image of one page in one language. */
 export function shareImage(locale: Locale, route: RouteKey) {
-  const t = getDictionary(locale).meta;
-  const [eyebrow, title] = route === "home" ? [t.shareHomeEyebrow, t.shareHomeTitle] : [t.shareSitesEyebrow, t.shareSitesTitle];
+  const dictionary = getDictionary(locale);
+  const t = dictionary.meta;
+  const [eyebrow, title] = route === "home" ? [t.shareHomeEyebrow, t.shareHomeTitle]
+    : isCase(route) ? [dictionary.cases[route].shareEyebrow, dictionary.cases[route].title.join(" ")]
+    : [t.shareSitesEyebrow, t.shareSitesTitle];
   return new ImageResponse(
     <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "72px 80px", background: "#f2f3f0", color: "#242623" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>

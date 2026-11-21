@@ -247,6 +247,33 @@ export const ptBR = {
       close: "Fechar",
     },
   },
+  /** Estudos de caso. Use só fatos confirmados por Renan (docs/superpowers/specs/2026-11-21-case-study-pages-design.md). */
+  cases: {
+    labels: {
+      context: "Contexto",
+      goal: "Objetivo",
+      role: "Meu papel",
+      backLabel: "Voltar aos projetos",
+      visit: "Ver site",
+      visitLabel: "Ver o site, abre em nova aba",
+      backToProjects: "Voltar aos projetos",
+      progress: "Progresso do case",
+    },
+    waldemar: {
+      name: "Condomínio Waldemar",
+      metaTitle: "Condomínio Waldemar — estudo de caso",
+      metaDescription: "Estudo de caso do site do Parque Residencial Waldemar Pereira Duarte, em Rio Grande, RS: design e desenvolvimento de um site para apresentar o condomínio a quem ainda não o conhece.",
+      shareEyebrow: "Estudo de caso · Website",
+      title: ["Uma pequena cidade", "dentro da cidade — e um", "lugar para ser conhecida."],
+      tags: ["Website", "UI Design", "Desenvolvimento", "Rio Grande, RS"],
+      context: "O Parque Residencial Waldemar Pereira Duarte faz parte de Rio Grande desde 1991. Moradia, comércio, ginásio, áreas abertas e espaços infantis convivem ali há mais de três décadas, quase como um bairro próprio.",
+      goal: "Criar um site que apresente o condomínio para quem ainda não o conhece: mostrar a rotina, a estrutura e como chegar, com a mesma sensação de comunidade de quem vive lá.",
+      role: "Design e desenvolvimento: organização do conteúdo, interface, front-end e publicação.",
+      statement: "Diferentes partes da rotina acontecem por aqui.",
+      /** Textos alternativos das telas, por id de painel em config/cases.ts. */
+      alts: {} as Record<string, string>,
+    },
+  },
   destruction: {
     start: "Tá. Você que pediu.",
     milestones: { 1: "...", 4: "Você tá gostando disso, né?", 9: "Era pra ser só um easter egg.", 15: "Meu Lighthouse…" },
