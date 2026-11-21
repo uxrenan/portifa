@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { motion, useInView, useReducedMotion, useTransform } from "framer-motion";
+import { motion, useInView, useTransform } from "framer-motion";
 import { Button } from "@/components/Button/Button";
 import { PixelReveal } from "@/components/PixelReveal/PixelReveal";
 import type { CasePanel, CaseShot, CaseStudy } from "@/config/cases";
 import { quoteHref } from "@/config/identity";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useCaseTrack } from "./CaseTrack";
+import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 
 const ratio = (shot: CaseShot) => ({ "--ratio": `${shot.width} / ${shot.height}` }) as CSSProperties;
 const step = (index: number) => ({ "--i": index }) as CSSProperties;
@@ -61,7 +62,7 @@ function Statement({ study }: { study: CaseStudy }) {
 /** A screen that arrives in pixels out of the dark panel while it settles from a slight zoom, like the project cards. */
 function Shot({ study, shot, sizes, shown, delay = 0, columns }: { study: CaseStudy; shot: CaseShot; sizes: string; shown: boolean; delay?: number; columns: number }) {
  const { t } = useI18n();
- const reduced = useReducedMotion();
+ const reduced = usePrefersReducedMotion();
  return <div className="case-shot" style={{ ...ratio(shot), "--delay": `${delay}ms` } as CSSProperties}>
   <div className="case-shot-motion">
    <Image src={shot.src} alt={t.cases[study.key].alts[shot.id] ?? ""} fill sizes={sizes} className="case-shot-image" />
