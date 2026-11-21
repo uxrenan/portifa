@@ -84,7 +84,7 @@ export function CaseTrack({ study }: { study: CaseStudy }) {
 
  const state = useMemo(() => ({ horizontal, progress: scrollYProgress, panelRange }), [horizontal, scrollYProgress, panelRange]);
  return <CaseTrackContext.Provider value={state}>
-  <section ref={section} className="case-track" data-horizontal={horizontal} style={horizontal ? { height: `calc(100dvh + ${travel}px)` } : undefined}>
+  <section ref={section} className="case-track" data-horizontal={horizontal} data-motion={!reduced} style={horizontal ? { height: `calc(100dvh + ${travel}px)` } : undefined}>
    <div className="case-track-stage">
     <motion.div ref={rail} className="case-track-rail" style={{ x: horizontal ? x : 0 }} onFocus={onFocus}>
      {study.panels.map((panel, index) => <CasePanelView key={`${panel.kind}-${index}`} panel={panel} study={study} />)}
