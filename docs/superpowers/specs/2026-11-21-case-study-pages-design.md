@@ -71,8 +71,10 @@ O Renan escolheu **A**.
 ### Chamadas minhas (o Renan pode corrigir)
 - **Celular (< 768px) e `prefers-reduced-motion`:** sem trilha horizontal; os mesmos painéis em coluna vertical. O
   Renan não se opôs ao propor isso.
-- **Ano "2026"** tirado do rodapé do site do Waldemar; **público "quem ainda não conhece"** do objetivo. Não
-  confirmados explicitamente.
+- **Ano:** fica de fora das etiquetas (o "2026" do rodapé do site não foi confirmado). Pode entrar depois se o Renan
+  confirmar.
+- **Público do objetivo** ("quem ainda não o conhece"): mantido, por repetir o que o Renan disse ("criar um contexto
+  para as pessoas conhecerem o condomínio").
 - **Rotas:** `/projetos/waldemar` (pt-BR) e `/en/projects/waldemar` (en).
 - **Cards da home:** Waldemar passa a abrir o case (link interno, cursor "Ver projeto"); AVA e Optimiz viram
   `soon: true` sem link, como o card 04.
@@ -90,7 +92,7 @@ O Renan escolheu **A**.
 pt-BR (aprovado em conversa):
 
 - **Título-gancho:** Uma pequena cidade dentro da cidade — e um lugar para ser conhecida.
-- **Etiquetas:** Website · UI Design · Desenvolvimento · Rio Grande, RS · 2026
+- **Etiquetas:** Website · UI Design · Desenvolvimento · Rio Grande, RS
 - **Contexto:** O Parque Residencial Waldemar Pereira Duarte faz parte de Rio Grande desde 1991. Moradia, comércio,
   ginásio, áreas abertas e espaços infantis convivem ali há mais de três décadas, quase como um bairro próprio.
 - **Objetivo:** Criar um site que apresente o condomínio para quem ainda não o conhece: mostrar a rotina, a estrutura e
@@ -113,6 +115,23 @@ en: tradução fiel do texto acima, sem acrescentar fatos. O Renan revisa no fim
 
 Painéis de imagem ocupam a altura útil da tela; a largura de cada um vem da proporção da imagem. Painéis de texto
 têm largura fixa confortável de leitura.
+
+### Animações (pedido do Renan: "que combinem com o restante do site")
+
+Reaproveitar o vocabulário de movimento que o site já tem, sem estilo novo:
+
+- **Imagens chegam em pixels:** cada painel de imagem usa o `PixelReveal` (mesmo efeito dos cards de projeto, cor de
+  saída `#171a18`) combinado com o leve zoom 1.06 → 1 da `.project-image-motion`, disparado quando o painel entra na
+  tela (no desktop, ao entrar horizontalmente; no celular, `useInView` vertical).
+- **Textos sobem e aparecem:** etiquetas, rótulos e parágrafos com o mesmo `translateY(10px)` + opacidade e a curva
+  `cubic-bezier(.22, 1, .36, 1)` dos cards, em escalonamento curto.
+- **Frase grande ligada ao scroll:** como a `EditorialPause`, a frase desliza em ritmo próprio (parallax leve) e se
+  revela com máscara (`clip-path`) conforme a trilha passa por ela.
+- **Abertura:** o título-gancho entra linha a linha com máscara, ecoando a entrada do Hero.
+- **Fim:** botões com o `Button` do site (seta em pixels que se desenha no hover).
+- **Barra de progresso:** cresce com o scroll, sem easing próprio.
+- **Reduced motion:** sem trilha horizontal, sem pixels, sem parallax: tudo aparece direto, como o resto do site faz.
+- Só `transform`, `opacity` e `clip-path`, como no restante do site.
 
 ## 6. Estrutura técnica (direção, não plano)
 
